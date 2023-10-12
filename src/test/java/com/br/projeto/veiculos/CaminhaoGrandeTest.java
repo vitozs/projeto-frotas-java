@@ -12,7 +12,7 @@ public class CaminhaoGrandeTest {
     public void testCaminhaoGrande() {
         CaminhaoGrande caminhaoGrande = new CaminhaoGrande();
 
-        Assertions.assertEquals(1000, caminhaoGrande.getCapacidade());
+        Assertions.assertEquals(10000, caminhaoGrande.getCapacidade());
         Assertions.assertEquals(29.21, caminhaoGrande.getCustoPorKm());
     }
 }
