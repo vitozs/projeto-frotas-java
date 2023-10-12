@@ -1,4 +1,4 @@
-package com.br.projeto.controllers;
+package com.br.projeto.util;
 
 import org.json.simple.JSONArray;
 import org.junit.Assert;
