@@ -5,9 +5,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int option = 0;
+        int opcao = 0;
         Scanner scanner = new Scanner(System.in);
-        do {
+        while(opcao != 4){
+
             System.out.println("""
                 Bem Vindo!!
                 Menu                              \s
@@ -18,8 +19,8 @@ public class Main {
                 Escolha sua Opção:
                 """);
             try {
-                option = scanner.nextInt();
-                if (option < 1 || option > 4)
+                opcao = scanner.nextInt();
+                if (opcao < 1 || opcao > 4)
                     throw new OpcaoInvalidaException("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
@@ -28,6 +29,27 @@ public class Main {
                 System.err.println("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
                 scanner.next();
             }
-        }while ( option < 1 ||  option > 4);
+            switch (opcao){
+                case 1 -> metodo1();
+                case 2 -> metodo2();
+                case 3 -> metodo3();
+                case 4 -> System.out.println("Sair"); //Apenas
+            }
+        }
+
     }
+
+    private static void metodo1(){
+        //altere nome do metodo para chamada da class com o metodo
+        //chame sua classe aqui
+        // exemplo calculadora.calculaViagem();
+    }
+    private static void metodo2(){
+        //altere nome do metodo para chamada da class com o metodo
+    }
+    private static void metodo3(){
+        //altere nome do metodo para chamada da class com o metodo
+    }
+
+
 }
