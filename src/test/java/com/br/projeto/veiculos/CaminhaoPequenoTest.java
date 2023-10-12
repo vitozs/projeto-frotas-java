@@ -10,7 +10,7 @@ public class CaminhaoPequenoTest {
     public void testCaminhaoPequeno() {
         CaminhaoPequeno caminhaoPequeno = new CaminhaoPequeno();
 
-        Assertions.assertEquals(1, caminhaoPequeno.getCapacidade());
+        Assertions.assertEquals(1000, caminhaoPequeno.getCapacidade());
         Assertions.assertEquals(5.83, caminhaoPequeno.getCustoPorKm());
     }
 }

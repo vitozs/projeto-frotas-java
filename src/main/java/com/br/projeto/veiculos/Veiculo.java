@@ -1,7 +1,7 @@
 package com.br.projeto.veiculos;
 
 public abstract class Veiculo {
-    private final int capacidade;  //toneladas
+    private final int capacidade;  //KG
 
     private final double custoPorKm;
 

@@ -11,7 +11,7 @@ public class CaminhaoMedioTest {
     public void testCaminhaoMedio() {
         CaminhaoMedio caminhaoMedio = new CaminhaoMedio();
 
-        Assertions.assertEquals(4, caminhaoMedio.getCapacidade());
+        Assertions.assertEquals(4000, caminhaoMedio.getCapacidade());
         Assertions.assertEquals(13.42, caminhaoMedio.getCustoPorKm());
     }
 }
