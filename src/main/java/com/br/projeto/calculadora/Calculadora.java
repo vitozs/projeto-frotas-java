@@ -45,7 +45,7 @@ public class Calculadora {
 
         double custoKm = caminhoes.get(this.tamanhoCaminhao).getCustoPorKm(); //Pega o valor p/Km do tamanho do caminhao dentro do hashmap
 
-        return distancia * custoKm; //retorna o valor total
+        retorna o valor total
     }
 
 
