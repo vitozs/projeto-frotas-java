@@ -45,7 +45,7 @@ public class Main {
     }
     // Função para listar as cidades
     public static void listarCidades() {
-        JSONArray jsonArray = JsonReader.lerArquivoJson();
+        JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         jsonArray.forEach(obj -> {
             JSONObject cidade = (JSONObject) obj;
             System.out.println(cidade.get("CIDADE"));
