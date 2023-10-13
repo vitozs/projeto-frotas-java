@@ -1,5 +1,6 @@
 package com.br.projeto.calculadora;
 
+import com.br.projeto.exeptions.CidadeInexistenteException;
 import com.br.projeto.util.JsonReader;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
@@ -29,11 +30,13 @@ public class Calculadora {
             //Converte em um JSONObject para poder acessar os parametros de cada cidade
             JSONObject cidadeObj = (JSONObject) cidadeJson;
             //Verifica qual cidade esta acessando
-            if(Objects.equals(cidadeObj.get("CIDADE"), this.cidade.toUpperCase())){
+            if(this.cidadeExistente(cidadeObj)){
                 //Transforma o valor do campo "LOCAIS" em um JSONObject para acessar os valores
                 JSONObject distanciasCidade = (JSONObject) cidadeObj.get("LOCAIS");
                 //Pega o valor da cidade com o nome do campo passado pelo usuario
                 distanciaTotal =  (Long) distanciasCidade.get(this.destino.toUpperCase());
+            } else {
+                throw new CidadeInexistenteException("Cidade ou Destino Invalidos!");
             }
         }
 
@@ -49,6 +52,13 @@ public class Calculadora {
         return distancia * custoKm;
     }
 
+    public boolean cidadeExistente(JSONObject cidadeObj) {
+        if (Objects.equals(cidadeObj.get("CIDADE"), this.cidade.toUpperCase()) || Objects.equals(cidadeObj.get("CIDADE"), this.destino.toUpperCase())){
+            return true;
+        }
+        return false;
+
+    }
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
