@@ -13,11 +13,11 @@ import java.io.IOException;
 public class JsonReader {
 
 
-    public static JSONArray lerArquivoJson(){
+    public static JSONArray lerArquivoJson(String path){
         try {
             //Le o arquivo JSON
             JSONParser parser = new JSONParser();
-            FileReader reader = new FileReader("src/main/resources/json/relacao_cidades.json");
+            FileReader reader = new FileReader(path);
 
             //Transforma em Objeto
             Object objetoJson = parser.parse(reader);
