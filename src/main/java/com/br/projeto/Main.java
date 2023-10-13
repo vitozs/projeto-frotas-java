@@ -1,4 +1,5 @@
 package com.br.projeto;
+import com.br.projeto.listaCidades.ListarCidades;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -37,6 +38,13 @@ public class Main {
             }
         }
 
+    }
+    // Função para listar as cidades
+    public static void listarCidades() {
+        System.out.println("Cidades disponiveis:");
+        for (ListarCidades.Cidade cidade : ListarCidades.Cidade.values()) {
+            System.out.println(cidade.name());
+        }
     }
 
     private static void metodo1(){
