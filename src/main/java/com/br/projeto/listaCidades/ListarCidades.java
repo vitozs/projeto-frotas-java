@@ -1,5 +1,7 @@
+package com.br.projeto.listaCidades;
+
 public class ListarCidades {
-    enum Cidade{
+    public enum Cidade{
         ARACAJU,
         BELEM,
         BELO_HORIZONTE,
