@@ -1,6 +1,9 @@
 package com.br.projeto;
-import com.br.projeto.listaCidades.ListarCidades;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
+import com.br.projeto.util.JsonReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,6 +11,8 @@ public class Main {
     public static void main(String[] args) {
         int opcao = 0;
         Scanner scanner = new Scanner(System.in);
+        listarCidades();
+
         while(opcao != 4){
 
             System.out.println("""
@@ -41,10 +46,11 @@ public class Main {
     }
     // Função para listar as cidades
     public static void listarCidades() {
-        System.out.println("Cidades disponiveis:");
-        for (ListarCidades.Cidade cidade : ListarCidades.Cidade.values()) {
-            System.out.println(cidade.name());
-        }
+        JSONArray jsonArray = JsonReader.lerArquivoJson();
+        jsonArray.forEach(obj -> {
+            JSONObject cidade = (JSONObject) obj;
+            System.out.println(cidade.get("CIDADE"));
+        });
     }
 
     private static void metodo1(){
