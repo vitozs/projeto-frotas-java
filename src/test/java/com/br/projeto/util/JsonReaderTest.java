@@ -10,7 +10,8 @@ public class JsonReaderTest {
     @DisplayName("Testa se retorna um JsonArray")
     @Test
     void retornaArray(){
-        String path = "src/main/resources/json/relacao_cidades.json"
+        String path = "src/main/resources/json/relacao_cidades.json";
+
         Assert.assertEquals(JSONArray.class, JsonReader.lerArquivoJson(path).getClass());
     }
 
