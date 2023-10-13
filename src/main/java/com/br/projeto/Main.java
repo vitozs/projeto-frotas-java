@@ -32,7 +32,6 @@ public class Main {
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
-                System.err.println("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
                 scanner.next();
             }
             switch (opcao){
