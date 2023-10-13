@@ -21,7 +21,7 @@ public class Calculadora {
     //Retorna a distancia entre as cidades passadas
     public Long getDistanciaEntreCidades(){
         //Acessa o metodo que retorna o json tratado
-        JSONArray distancias = JsonReader.lerArquivoJson();
+        JSONArray distancias = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         Long distanciaTotal = 0L;
 
         //Navega no Array de Objetos
