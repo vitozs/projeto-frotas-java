@@ -76,11 +76,11 @@ public class Calculadora {
     }
 
     public void setCidade(String cidade) {
-        this.cidade = cidade;
+        this.cidade = cidade.toUpperCase();
     }
 
     public void setDestino(String destino) {
-        this.destino = destino;
+        this.destino = destino.toUpperCase();
     }
 
     public void setTamanhoCaminhao(String tamanhoCaminhao) {
