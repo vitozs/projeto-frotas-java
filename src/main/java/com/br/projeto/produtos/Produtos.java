@@ -1,19 +1,14 @@
 package com.br.projeto.produtos;
 
+import com.br.projeto.exeptions.ProdutoNaoEncontradoException;
 import com.br.projeto.util.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Integer.*;
 
 public class Produtos {
 
@@ -21,6 +16,8 @@ public class Produtos {
     private double peso;
     private int quantidade;
 
+    public List<Produtos> produtosList = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
 
     public Produtos() {
     }
@@ -31,8 +28,7 @@ public class Produtos {
         this.quantidade = quantidade;
     }
 
-    List<Produtos> produtosList = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
+
 
     public void getListaDeProdutos() {
         /**/
@@ -56,6 +52,9 @@ public class Produtos {
 
         System.out.print("Digite o id do produto: ");
         int idSelecionado = scanner.nextInt();
+        if(idSelecionado > 8 || idSelecionado < 0){
+            throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
+        }
         System.out.print("Digite a quantidade de produtos: ");
         int quantidadeProduto = scanner.nextInt();
 
@@ -76,8 +75,11 @@ public class Produtos {
             System.out.println("Produto adicionado com sucesso.");
             System.out.print(produtos.get(idSelecionado -1));
             System.out.println(" Quantidade: " + quantidadeProduto);
-        } else {
-            System.out.println("Produto não encontrado com o ID especificado.");
         }
     }
+
+    public List<Produtos> getProdutosList() {
+        return produtosList;
+    }
+
 }
