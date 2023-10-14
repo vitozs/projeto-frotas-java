@@ -1,13 +1,14 @@
 package com.br.projeto;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
+import com.br.projeto.produtos.Produtos;
 import com.br.projeto.util.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
+    static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         int opcao = 0;
         Scanner scanner = new Scanner(System.in);
@@ -56,9 +57,28 @@ public class Main {
         //altere nome do metodo para chamada da class com o metodo
         //chame sua classe aqui
         // exemplo calculadora.calculaViagem();
+
     }
     private static void metodo2(){
         //altere nome do metodo para chamada da class com o metodo
+        Produtos produtos = new Produtos();
+        String opt = "";
+        String cidadeOrigem, cidadeDestino;
+        List<Produtos> listProdutos = null;
+
+        while(!Objects.equals(opt, "n")){
+            produtos.adicionarProduto();
+            System.out.println("Deseja continuar? (s/n) ");
+            opt = scan.next();
+        }
+
+        listProdutos = produtos.getProdutosList();
+
+        System.out.println("Digite a cidade de origem: ");
+        cidadeOrigem = scan.nextLine();
+        System.out.println("Digite a cidade de destino: ");
+        cidadeDestino = scan.nextLine();
+
     }
     private static void metodo3(){
         //altere nome do metodo para chamada da class com o metodo
