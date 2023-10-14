@@ -3,6 +3,8 @@ import com.br.projeto.calculadora.Calculadora;
 import com.br.projeto.calculadora.MelhorFrotaCaminhoes;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
 import com.br.projeto.produtos.Produtos;
+import com.br.projeto.tratamentoDadosEstatisticos.TratarDados;
+import com.br.projeto.tratamentoDadosEstatisticos.Viagem;
 import com.br.projeto.util.JsonReader;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
@@ -92,8 +94,10 @@ public class Main {
         String opt = "";
         Calculadora calculadora = new Calculadora();
         String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
+        double distanciaTotal = 0, custoTotal = 0, mediaUnitaria = 0;
         List<Produtos> listProdutos = null;
-        double pesoTotalProdutos = 0, qtdTotal = 0;
+        double pesoTotalProdutos = 0;
+        int qtdTotal = 0;
         while(!Objects.equals(opt, "n")){
             produtos.adicionarProduto();
             System.out.println("Deseja continuar? (s/n) ");
@@ -116,13 +120,19 @@ public class Main {
         calculadora.setCidade(cidadeOrigem);
         calculadora.setDestino(cidadeDestino);
 
+        distanciaTotal = calculadora.getDistanciaEntreCidades();
+
+
         List<Veiculo> melhorCombinacao = MelhorFrotaCaminhoes.encontraMelhorFrota(CaminhoesHashMap.hashMapVeiculos(), pesoTotalProdutos, calculadora.getDistanciaEntreCidades());
 
+        custoTotal = MelhorFrotaCaminhoes.menorCustoTotal;
+        mediaUnitaria = (MelhorFrotaCaminhoes.menorCustoTotal / qtdTotal);
+
         System.out.println("----------------------");
-        System.out.println("Distancia total: " + calculadora.getDistanciaEntreCidades() + " Km");
+        System.out.println("Distancia total: " + distanciaTotal + " Km");
         System.out.println("Peso total: " + pesoTotalProdutos + " Kg");
-        System.out.printf("Custo total: R$%.2f \n", MelhorFrotaCaminhoes.menorCustoTotal);
-        System.out.printf("Preco unitario medio: R$ %.2f \n", (MelhorFrotaCaminhoes.menorCustoTotal / qtdTotal) );
+        System.out.printf("Custo total: R$%.2f \n", custoTotal);
+        System.out.printf("Preco unitario medio: R$ %.2f \n", mediaUnitaria );
         System.out.println("--------------------");
         System.out.println("Caminhoes usados: ");
         for (Veiculo veiculo : melhorCombinacao){
@@ -130,11 +140,24 @@ public class Main {
         }
         System.out.println("--------------------");
 
+        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal));
 
 
     }
     private static void metodo3(){
         //altere nome do metodo para chamada da class com o metodo
+        System.out.println("==========================");
+        System.out.println("||                      ||");
+        System.out.println("||      RELATORIO       ||");
+        System.out.println("||                      ||");
+        System.out.println("==========================");
+        TratarDados.custoPorTrecho();
+        System.out.println("--------------------------");
+        System.out.printf("\nCusto total das viagens: %.2f \n" , TratarDados.custoTotalViagens());
+        System.out.println("Numero total de veiculos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
+        System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
+        TratarDados.custoTotalPorModalidade();
+        System.out.printf("\nCusto medio por Km: %.2f \n",  TratarDados.custoMedioPorKm());
     }
 
 
