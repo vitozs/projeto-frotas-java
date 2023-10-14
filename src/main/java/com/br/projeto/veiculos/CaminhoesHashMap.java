@@ -16,9 +16,9 @@ public class CaminhoesHashMap {
         CaminhaoGrande caminhaoGrande = new CaminhaoGrande();
         HashMap<String, Veiculo> caminhoes = new HashMap<>();
 
-        caminhoes.put("PEQUENO", caminhaoPequeno);
-        caminhoes.put("MEDIO", caminhaoMedio);
         caminhoes.put("GRANDE", caminhaoGrande);
+        caminhoes.put("MEDIO", caminhaoMedio);
+        caminhoes.put("PEQUENO", caminhaoPequeno);
 
         return caminhoes;
 
