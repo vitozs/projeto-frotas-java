@@ -11,6 +11,7 @@ public class VerificaRetornoNuloListaDeProdutos {
 
     @Test
     void verificaRetornoNulo() {
+
         JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
         /*Verifica se não é nulo*/
         assertNotNull(jsonArray);

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MelhorFrotaCaminhoes {
+    public static double menorCustoTotal;
     public static List<Veiculo> encontraMelhorFrota(HashMap<String, Veiculo> caminhoesDisponiveis, double cargaEntrega, double distanciaTotal) {
 
         List<Veiculo> melhorCombinacao = new ArrayList<>();
@@ -37,6 +38,7 @@ public class MelhorFrotaCaminhoes {
             }
         }
 
+        menorCustoTotal = menorCusto;
         return melhorCombinacao;
     }
 
