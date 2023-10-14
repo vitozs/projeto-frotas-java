@@ -8,20 +8,16 @@ import java.util.List;
 
 public class MelhorFrotaCaminhoes {
     public static List<Veiculo> encontraMelhorFrota(HashMap<String, Veiculo> caminhoesDisponiveis, double cargaEntrega, double distanciaTotal) {
-        if (cargaEntrega <= 0) {
-
-            return new ArrayList<>();
-        }
 
         List<Veiculo> melhorCombinacao = new ArrayList<>();
         double menorCusto = Double.MAX_VALUE;
 
-        for (Veiculo caminhao : caminhoesDisponiveis.values()) {
-            if (cargaEntrega <= caminhao.getCapacidade()) {
+        for (Veiculo caminhaoAtual : caminhoesDisponiveis.values()) {
+            if (cargaEntrega <= caminhaoAtual.getCapacidade()) {
                 List<Veiculo> combinacaoAtual = new ArrayList<>();
-                combinacaoAtual.add(caminhao);
+                combinacaoAtual.add(caminhaoAtual);
 
-                double custoAtual = calcularCusto(distanciaTotal, combinacaoAtual);
+                double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
 
                 if (custoAtual < menorCusto) {
                     menorCusto = custoAtual;
@@ -29,10 +25,10 @@ public class MelhorFrotaCaminhoes {
                 }
             } else {
 
-                List<Veiculo> combinacaoAtual = encontraMelhorFrota(caminhoesDisponiveis, cargaEntrega - caminhao.getCapacidade(), distanciaTotal);
-                combinacaoAtual.add(caminhao);
+                List<Veiculo> combinacaoAtual = encontraMelhorFrota(caminhoesDisponiveis, cargaEntrega - caminhaoAtual.getCapacidade(), distanciaTotal);
+                combinacaoAtual.add(caminhaoAtual);
 
-                double custoAtual = calcularCusto(distanciaTotal, combinacaoAtual);
+                double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
 
                 if (custoAtual < menorCusto) {
                     menorCusto = custoAtual;
@@ -44,7 +40,7 @@ public class MelhorFrotaCaminhoes {
         return melhorCombinacao;
     }
 
-    public static double calcularCusto(double distanciaTotal, List<Veiculo> caminhoes) {
+    private static double calcularCustoCombinacao(double distanciaTotal, List<Veiculo> caminhoes) {
         double custoTotal = 0;
         for (Veiculo caminhao : caminhoes) {
             custoTotal += distanciaTotal * caminhao.getCustoPorKm();
