@@ -82,4 +82,11 @@ public class Produtos {
         return produtosList;
     }
 
+    public double getPeso() {
+        return peso;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
 }
