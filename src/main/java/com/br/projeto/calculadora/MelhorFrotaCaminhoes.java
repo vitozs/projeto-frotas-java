@@ -3,11 +3,14 @@ package com.br.projeto.calculadora;
 import com.br.projeto.veiculos.Veiculo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MelhorFrotaCaminhoes {
-    public static List<Veiculo> encontraMelhorFrota(HashMap<String, Veiculo> caminhoesDisponiveis, double cargaEntrega, double distanciaTotal) {
+
+
+    public static List<Veiculo> encontraMelhorFrota(LinkedHashMap<String, Veiculo> caminhoesDisponiveis, double cargaEntrega, double distanciaTotal) {
+
 
         List<Veiculo> melhorCombinacao = new ArrayList<>();
         double menorCusto = Double.MAX_VALUE;
@@ -17,7 +20,8 @@ public class MelhorFrotaCaminhoes {
                 List<Veiculo> combinacaoAtual = new ArrayList<>();
                 combinacaoAtual.add(caminhaoAtual);
 
-                double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
+               double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
+
 
                 if (custoAtual < menorCusto) {
                     menorCusto = custoAtual;
@@ -30,10 +34,11 @@ public class MelhorFrotaCaminhoes {
 
                 double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
 
-                if (custoAtual < menorCusto) {
-                    menorCusto = custoAtual;
-                    melhorCombinacao = combinacaoAtual;
-                }
+                // Se o custo atual for maior do que o menorCusto pode parar a recursao pois nao precisa verificar outras possibilidades nessa direcao
+                if (custoAtual >= menorCusto) return melhorCombinacao;
+
+                menorCusto = custoAtual;
+                melhorCombinacao = combinacaoAtual;
             }
         }
 
