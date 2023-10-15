@@ -63,4 +63,8 @@ public class TratarDados {
         media = valorTotal / viagens.size();
         return media;
     }
+
+    public static List<Viagem> getViagens(){
+        return viagens;
+    }
 }

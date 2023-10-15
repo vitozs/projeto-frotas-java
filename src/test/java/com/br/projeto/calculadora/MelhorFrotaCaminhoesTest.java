@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MelhorFrotaCaminhoesTest {
-    HashMap<String, Veiculo> caminhoesDisponiveis = CaminhoesHashMap.hashMapVeiculos();
+   LinkedHashMap<String, Veiculo> caminhoesDisponiveis =  CaminhoesHashMap.hashMapVeiculos();
 
     @DisplayName("Testa Caminhao Pequeno")
     @Test
@@ -39,6 +39,24 @@ public class MelhorFrotaCaminhoesTest {
 
     }
 
+
+
+    @DisplayName("Testa Frota muito Grande")
+    @Test
+    public void testaFrotaMuitoGrande(){
+
+        double cargaTotalDaEntrega = 26000;
+        double distanciaTotal = 1109;
+
+        List<Veiculo> listMelhorFrota = MelhorFrotaCaminhoes.encontraMelhorFrota(caminhoesDisponiveis, cargaTotalDaEntrega, distanciaTotal);
+
+        Assertions.assertEquals("MEDIO", listMelhorFrota.get(0).getTipo());
+        Assertions.assertEquals("MEDIO", listMelhorFrota.get(1).getTipo());
+        Assertions.assertEquals("GRANDE", listMelhorFrota.get(2).getTipo());
+        Assertions.assertEquals("MEDIO", listMelhorFrota.get(3).getTipo());
+        Assertions.assertEquals("MEDIO", listMelhorFrota.get(4).getTipo());
+
+    }
     @DisplayName("Testa Caminhao GRANDE")
     @Test
     public void testaGrande(){
@@ -62,8 +80,8 @@ public class MelhorFrotaCaminhoesTest {
 
         List<Veiculo> listMelhorFrota = MelhorFrotaCaminhoes.encontraMelhorFrota(caminhoesDisponiveis, cargaTotalDaEntrega, distanciaTotal);
 
-        Assertions.assertEquals("MEDIO", listMelhorFrota.get(0).getTipo());
-        Assertions.assertEquals("PEQUENO", listMelhorFrota.get(1).getTipo());
+        Assertions.assertEquals("PEQUENO", listMelhorFrota.get(0).getTipo());
+        Assertions.assertEquals("MEDIO", listMelhorFrota.get(1).getTipo());
 
     }
 }
