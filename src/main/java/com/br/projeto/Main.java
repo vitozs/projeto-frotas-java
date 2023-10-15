@@ -19,7 +19,7 @@ public class Main {
         int opcao = 0;
         //listarCidades();
 
-        while(opcao != 4){
+        while(opcao != 6){
 
             System.out.println("""
                 Bem Vindo!!
@@ -27,12 +27,14 @@ public class Main {
                 1 -  Consultar Trechos e Modalidades
                 2 -  Cadastrar transporte
                 3 -  Dados estatísticos
-                4  - Encerrar Programa
+                4 - Listar Cidades
+                5 - Listar Produtos
+                6  - Encerrar Programa
                 Escolha sua Opção:
                 """);
             try {
                 opcao = scan.nextInt();
-                if (opcao < 1 || opcao > 4)
+                if (opcao < 1 || opcao > 6)
                     throw new OpcaoInvalidaException("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
@@ -44,7 +46,9 @@ public class Main {
                 case 1 -> metodo1();
                 case 2 -> metodo2();
                 case 3 -> metodo3();
-                case 4 -> System.out.println("Sair"); //Apenas
+                case 4 -> listarCidades();
+                case 5 -> listarProdutos();
+                case 6 -> System.out.println("Sair"); //Apenas
             }
         }
 
@@ -56,6 +60,11 @@ public class Main {
             JSONObject cidade = (JSONObject) obj;
             System.out.println(cidade.get("CIDADE"));
         });
+    }
+
+    public static void listarProdutos(){
+        Produtos produto = new Produtos();
+        produto.getListaDeProdutos();
     }
 
     private static void metodo1(){
