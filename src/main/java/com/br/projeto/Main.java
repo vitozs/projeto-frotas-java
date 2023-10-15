@@ -226,8 +226,8 @@ public class Main {
 
     private static void enviaEmail(){
 
-        String meuEmail = "vitornuneschagas2016@gmail.com";
-        String minhaSenha = "xefhclnyjoozecmu ";
+        String meuEmail = "amarelinhaapp@gmail.com";
+        String minhaSenha = "fazaprhtdqftvqbs";
 
         MultiPartEmail email = new MultiPartEmail();
 
@@ -241,7 +241,7 @@ public class Main {
             email.setFrom(meuEmail);
             email.setSubject("Envio do relatorio de Entregas");
             email.setMsg("Segue em anexo o relatorio");
-            email.addTo(meuEmail);
+            email.addTo("vitornuneschagas2016@gmail.com");
 
             EmailAttachment anexo = new EmailAttachment();
 
