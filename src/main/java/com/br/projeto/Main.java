@@ -53,7 +53,7 @@ public class Main {
             }
         }
 
-        scan.close();
+
 
     }
     // Função para listar as cidades
@@ -106,11 +106,7 @@ public class Main {
         int qtdTotal = 0;
         while(!Objects.equals(opt, "N") ){
             produtos.adicionarProduto();
-            System.out.println("Deseja continuar? (s/n) ");
-            opt = scan.next().toUpperCase();
-            if(!Objects.equals(opt, "S") && !Objects.equals(opt, "N")){
-                throw new OpcaoInvalidaException("Opcao invalida!");
-            }
+            opt = loopContinuar();
         }
 
         listProdutos = produtos.getProdutosList();
@@ -158,6 +154,26 @@ public class Main {
         System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
         System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
+    }
+
+    private static String loopContinuar(){
+        boolean controle = false;
+        String opcao = "";
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Deseja continuar? (s/n) ");
+                opcao = scan.next().toUpperCase();
+                if(!Objects.equals(opcao, "S") && !Objects.equals(opcao, "N")){
+                    throw new OpcaoInvalidaException("Opcao invalida!");
+                }
+            }catch (OpcaoInvalidaException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }
+        }
+        return opcao;
     }
 
 
