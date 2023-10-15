@@ -44,18 +44,20 @@ public class Main {
                 scan.next();
             }
             switch (opcao){
-                case 1 -> metodo1();
-                case 2 -> metodo2();
-                case 3 -> metodo3();
+                case 1 -> consultarTrechosModalidades();
+                case 2 -> cadastrarTransporte();
+                case 3 -> dadosEstatisticos();
                 case 4 -> listarCidades();
                 case 5 -> listarProdutos();
                 case 6 -> System.out.println("Sair"); //Apenas
             }
         }
 
+        scan.close();
+
     }
     // Função para listar as cidades
-    public static void listarCidades() {
+    private static void listarCidades() {
         JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         jsonArray.forEach(obj -> {
             JSONObject cidade = (JSONObject) obj;
@@ -63,16 +65,12 @@ public class Main {
         });
     }
 
-    public static void listarProdutos(){
+    private static void listarProdutos(){
         Produtos produto = new Produtos();
         produto.getListaDeProdutos();
     }
 
-    private static void metodo1(){
-        //altere nome do metodo para chamada da class com o metodo
-        //chame sua classe aqui
-        // exemplo calculadora.calculaViagem();
-
+    private static void consultarTrechosModalidades(){
         String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
         Calculadora calculadora = new Calculadora();
 
@@ -102,7 +100,7 @@ public class Main {
 
 
     }
-    private static void metodo2(){
+    private static void cadastrarTransporte(){
         //altere nome do metodo para chamada da class com o metodo
 
         Produtos produtos = new Produtos();
@@ -163,7 +161,7 @@ public class Main {
 
 
     }
-    private static void metodo3(){
+    private static void dadosEstatisticos(){
         //altere nome do metodo para chamada da class com o metodo
         System.out.println("==========================");
         System.out.println("||                      ||");
