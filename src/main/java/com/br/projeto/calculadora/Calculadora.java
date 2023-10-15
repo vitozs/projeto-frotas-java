@@ -6,8 +6,6 @@ import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -58,7 +56,7 @@ public class Calculadora {
     public boolean validadorCidadeDestino(String cidade) {
         JSONArray distancias = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         boolean flag = false;
-        while(flag != true){
+        while(!flag){
             for(Object cidadeJson : distancias){
                 //Converte em um JSONObject para poder acessar os parametros de cada cidade
                 JSONObject cidadeObj = (JSONObject) cidadeJson;
@@ -68,7 +66,7 @@ public class Calculadora {
                 }
             }
             if(!flag){
-                throw new CidadeInexistenteException("cidade nao existe"); //se for falso, retorna uma exception
+                throw new CidadeInexistenteException("Cidade ou Destino Invalidos!"); //se for falso, retorna uma exception
             }
         }
 
@@ -76,11 +74,17 @@ public class Calculadora {
     }
 
     public void setCidade(String cidade) {
-        this.cidade = cidade.toUpperCase().trim();
+        if(validadorCidadeDestino(cidade.trim())){
+            this.cidade = cidade.toUpperCase().trim();
+        }
+
     }
 
     public void setDestino(String destino) {
-        this.destino = destino.toUpperCase().trim();
+        if(validadorCidadeDestino(destino.trim())){
+            this.destino = destino.toUpperCase().trim();
+        }
+
     }
 
     public void setTamanhoCaminhao(String tamanhoCaminhao) {
