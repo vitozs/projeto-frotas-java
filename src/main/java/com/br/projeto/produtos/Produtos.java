@@ -1,6 +1,5 @@
 package com.br.projeto.produtos;
 
-import com.br.projeto.exeptions.CampoInvalidoException;
 import com.br.projeto.exeptions.ProdutoNaoEncontradoException;
 import com.br.projeto.exeptions.QuantidadeInvalidaException;
 import com.br.projeto.util.JsonReader;
@@ -53,21 +52,11 @@ public class Produtos {
         JSONArray produtos = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
         boolean produtoEncontrado = false;
         int idSelecionado = 0, quantidadeProduto = 0;
-        try {
-            System.out.print("Digite o id do produto: ");
-            idSelecionado = scanner.nextInt();
-            if(idSelecionado > 8 || idSelecionado < 0){
-                throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
-            }
-            System.out.print("Digite a quantidade de produtos: ");
-            quantidadeProduto = scanner.nextInt();
-            if(quantidadeProduto <= 0){
-                throw new QuantidadeInvalidaException("Quantidade Invalida! Por favor, digite uma quantidade valida!");
-            }
 
-        }catch (InputMismatchException e){
-            throw new CampoInvalidoException("Campo digitado invalido! Digite um valor valido");
-        }
+
+        idSelecionado = recebeID(scanner);
+        quantidadeProduto =  recebeQuantidadeProduto(scanner);
+
 
         for (Object produtosJson : produtos) {
             JSONObject produto = (JSONObject) produtosJson;
@@ -87,6 +76,60 @@ public class Produtos {
             System.out.print(produtos.get(idSelecionado -1));
             System.out.println(" Quantidade: " + quantidadeProduto);
         }
+    }
+
+    private static int recebeID(Scanner scanner){
+        boolean controle = false;
+        int idSelecionado = 0;
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Digite o id do produto: ");
+                idSelecionado = scanner.nextInt();
+                if(idSelecionado > 8 || idSelecionado < 0){
+                    throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
+                }
+
+            } catch (ProdutoNaoEncontradoException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }catch (InputMismatchException e){
+                System.err.println("Campo digitado invalido! Digite um valor valido");
+                scanner.next();
+                controle = false;
+            }
+        }
+
+        return idSelecionado;
+
+    }
+
+    private static int recebeQuantidadeProduto(Scanner scanner){
+        boolean controle = false;
+        int quantidadeProduto = 0;
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Digite a quantidade de produtos: ");
+                quantidadeProduto = scanner.nextInt();
+                if(quantidadeProduto <= 0){
+                    throw new QuantidadeInvalidaException("Quantidade Invalida! Por favor, digite uma quantidade valida!");
+                }
+
+            } catch (QuantidadeInvalidaException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }catch (InputMismatchException e){
+                System.err.println("Campo digitado invalido! Digite um valor valido");
+                scanner.next();
+                controle = false;
+            }
+        }
+
+        return quantidadeProduto;
+
     }
 
     public List<Produtos> getProdutosList() {
