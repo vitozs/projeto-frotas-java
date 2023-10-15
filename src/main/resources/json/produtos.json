@@ -1,0 +1,42 @@
+[
+      {
+            "id" : 1,
+            "nome" : "Celular",
+            "peso" : 0.7
+      },
+      {
+            "id" : 2,
+            "nome" : "Geladeira",
+            "peso" : 50
+      },
+      {
+            "id" : 3,
+            "nome" : "AIR FRAYER",
+            "peso" : 3.5
+      },
+      {
+            "id" : 4,
+            "nome" : "CADEIRA",
+            "peso" : 5.0
+      },
+      {
+            "id" : 5,
+            "nome" : "LUMINARIA",
+            "peso" : 0.8
+      },
+      {
+            "id" : 6,
+            "nome" : "LAVADORA DE ROUPAS",
+            "peso" : 15
+      },
+      {
+            "id" : 7,
+            "nome" : "PLAYSTATION 5",
+            "peso" : 3.9
+      },
+      {
+            "id" : 8,
+            "nome" : "NITENDO SWITCH",
+            "peso" : 0.3
+      }
+]
