@@ -2,6 +2,7 @@ package com.br.projeto.produtos;
 
 import com.br.projeto.exeptions.CampoInvalidoException;
 import com.br.projeto.exeptions.ProdutoNaoEncontradoException;
+import com.br.projeto.exeptions.QuantidadeInvalidaException;
 import com.br.projeto.util.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -60,6 +61,9 @@ public class Produtos {
             }
             System.out.print("Digite a quantidade de produtos: ");
             quantidadeProduto = scanner.nextInt();
+            if(quantidadeProduto <= 0){
+                throw new QuantidadeInvalidaException("Quantidade Invalida! Por favor, digite uma quantidade valida!");
+            }
 
         }catch (InputMismatchException e){
             throw new CampoInvalidoException("Campo digitado invalido! Digite um valor valido");
