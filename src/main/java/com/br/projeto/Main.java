@@ -94,19 +94,17 @@ public class Main {
 
     }
     private static void cadastrarTransporte(){
-        //altere nome do metodo para chamada da class com o metodo
-
         Produtos produtos = new Produtos();
         String opt = "";
         Calculadora calculadora = new Calculadora();
         double distanciaTotal, custoTotal, mediaUnitaria;
         List<Produtos> listProdutos;
         double pesoTotalProdutos = 0;
-
         int qtdTotal = 0;
+
         while(!Objects.equals(opt, "N") ){
             produtos.adicionarProduto();
-            opt = loopContinuar();
+            opt = loopContinuar(); //recebe a opcao que o usuario digitou S ou N
         }
 
         listProdutos = produtos.getProdutosList();
