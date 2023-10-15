@@ -8,9 +8,8 @@ import java.util.List;
 
 public class MelhorFrotaCaminhoes {
 
-
+    public static double menorCustoTotal;
     public static List<Veiculo> encontraMelhorFrota(LinkedHashMap<String, Veiculo> caminhoesDisponiveis, double cargaEntrega, double distanciaTotal) {
-
 
         List<Veiculo> melhorCombinacao = new ArrayList<>();
         double menorCusto = Double.MAX_VALUE;
@@ -42,6 +41,7 @@ public class MelhorFrotaCaminhoes {
             }
         }
 
+        menorCustoTotal = menorCusto;
         return melhorCombinacao;
     }
 

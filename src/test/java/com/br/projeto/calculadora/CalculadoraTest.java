@@ -18,7 +18,6 @@ public class CalculadoraTest {
         int distancia = calculadora.getDistanciaEntreCidades().intValue();
 
         Assert.assertEquals(2108, distancia);
-
     }
 
     @DisplayName("Testa se retorna o valor correto de custo p/km")
@@ -34,11 +33,12 @@ public class CalculadoraTest {
 
     @Test
     void returnException () {
-        Assertions.assertThrows(CidadeInexistenteException.class, () ->{
-            calculadora.setCidade("Toronto");
-            calculadora.setDestino("Miami");
-            calculadora.valorTotal();
+
+
+        Assertions.assertThrows(CidadeInexistenteException.class, ()-> {
+            calculadora.validadorCidadeDestino("maiai");
         });
+
     }
 
 
