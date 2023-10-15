@@ -71,17 +71,10 @@ public class Main {
     }
 
     private static void consultarTrechosModalidades(){
-        String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
+        String tamanhoCaminhao;
         Calculadora calculadora = new Calculadora();
 
-        scan.nextLine();
-        System.out.println("Digite a cidade de origem: ");
-        cidadeOrigem = scan.nextLine();
-        calculadora.setCidade(cidadeOrigem);
-
-        System.out.println("Digite a cidade de destino: ");
-        cidadeDestino = scan.nextLine();
-        calculadora.setDestino(cidadeDestino);
+        recebeCidade(calculadora);
 
         System.out.println("Selecione o tamanho do caminhao: ");
         for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
@@ -106,17 +99,16 @@ public class Main {
         Produtos produtos = new Produtos();
         String opt = "";
         Calculadora calculadora = new Calculadora();
-        String cidadeOrigem, cidadeDestino;
         double distanciaTotal, custoTotal, mediaUnitaria;
         List<Produtos> listProdutos;
         double pesoTotalProdutos = 0;
 
         int qtdTotal = 0;
-        while(!Objects.equals(opt, "n") && !Objects.equals(opt, "N")){
+        while(!Objects.equals(opt, "N") ){
             produtos.adicionarProduto();
             System.out.println("Deseja continuar? (s/n) ");
-            opt = scan.next();
-            if(!Objects.equals(opt, "S") && !Objects.equals(opt, "s") && !Objects.equals(opt, "N") && !Objects.equals(opt, "n")){
+            opt = scan.next().toUpperCase();
+            if(!Objects.equals(opt, "S") && !Objects.equals(opt, "N")){
                 throw new OpcaoInvalidaException("Opcao invalida!");
             }
         }
@@ -127,16 +119,7 @@ public class Main {
             pesoTotalProdutos += produto.getPeso() * produto.getQuantidade();
             qtdTotal += produto.getQuantidade();
         }
-        scan.nextLine();
-
-        System.out.println("----------------------");
-        System.out.println("Digite a cidade origem: ");
-        cidadeOrigem = scan.nextLine();
-        calculadora.setCidade(cidadeOrigem);
-
-        System.out.println("Digite a cidade destino: ");
-        cidadeDestino = scan.nextLine();
-        calculadora.setDestino(cidadeDestino);
+        recebeCidade(calculadora);
 
         distanciaTotal = calculadora.getDistanciaEntreCidades();
 
@@ -177,5 +160,20 @@ public class Main {
         System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
     }
 
+
+    private static void recebeCidade(Calculadora calculadora){
+        String cidadeOrigem, cidadeDestino;
+
+        scan.nextLine();
+        System.out.println("----------------------");
+        System.out.println("Digite a cidade de origem: ");
+        cidadeOrigem = scan.nextLine();
+        calculadora.setCidade(cidadeOrigem);
+
+        System.out.println("Digite a cidade de destino: ");
+        cidadeDestino = scan.nextLine();
+        calculadora.setDestino(cidadeDestino);
+
+    }
 
 }
