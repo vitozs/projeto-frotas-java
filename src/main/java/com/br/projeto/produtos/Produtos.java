@@ -1,11 +1,13 @@
 package com.br.projeto.produtos;
 
+import com.br.projeto.exeptions.CampoInvalidoException;
 import com.br.projeto.exeptions.ProdutoNaoEncontradoException;
 import com.br.projeto.util.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,14 +51,19 @@ public class Produtos {
     public void adicionarProduto() {
         JSONArray produtos = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
         boolean produtoEncontrado = false;
+        int idSelecionado = 0, quantidadeProduto = 0;
+        try {
+            System.out.print("Digite o id do produto: ");
+            idSelecionado = scanner.nextInt();
+            if(idSelecionado > 8 || idSelecionado < 0){
+                throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
+            }
+            System.out.print("Digite a quantidade de produtos: ");
+            quantidadeProduto = scanner.nextInt();
 
-        System.out.print("Digite o id do produto: ");
-        int idSelecionado = scanner.nextInt();
-        if(idSelecionado > 8 || idSelecionado < 0){
-            throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
+        }catch (InputMismatchException e){
+            throw new CampoInvalidoException("Campo digitado invalido! Digite um valor valido");
         }
-        System.out.print("Digite a quantidade de produtos: ");
-        int quantidadeProduto = scanner.nextInt();
 
         for (Object produtosJson : produtos) {
             JSONObject produto = (JSONObject) produtosJson;

@@ -24,7 +24,7 @@ public class TratarDados {
             System.out.println("======================");
             System.out.println("       TRECHO " + (viagens.indexOf(viagem) + 1));
             System.out.println("======================");
-            System.out.printf("Custo total: %.2f \n", viagem.getCustoTotal());
+            System.out.printf("Custo total: R$ %.2f \n", viagem.getCustoTotal());
         }
     }
 
@@ -49,7 +49,7 @@ public class TratarDados {
         for (Viagem viagem : viagens){
             List<Veiculo> veiculos = viagem.getCombinacaoVeiculos();
             for (Veiculo veiculo : veiculos){
-                System.out.printf("Total veiculo " + veiculo.getTipo() + ": %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
+                System.out.printf("Total veiculo " + veiculo.getTipo() + ": R$ %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
             }
         }
     }

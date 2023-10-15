@@ -36,7 +36,7 @@ public class CalculadoraTest {
 
 
         Assertions.assertThrows(CidadeInexistenteException.class, ()-> {
-            calculadora.validadorCidadeDestino("tahiti");
+            calculadora.validadorCidadeDestino("maiai");
         });
 
     }
