@@ -40,6 +40,7 @@ public class Main {
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
+                System.err.println("Opcao invalida. Por favor, escolha um numero inteiro de (1 a 4)");
                 scan.next();
             }
             switch (opcao){
