@@ -56,19 +56,26 @@ public class Calculadora {
     public boolean validadorCidadeDestino(String cidade) {
         JSONArray distancias = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         boolean flag = false;
-        while(!flag){
-            for(Object cidadeJson : distancias){
-                //Converte em um JSONObject para poder acessar os parametros de cada cidade
-                JSONObject cidadeObj = (JSONObject) cidadeJson;
-                if(cidadeObj.containsValue(cidade.toUpperCase())){ //Verifica se contem o valor da cidade
-                    flag = true;
-                    break;
+
+        try {
+            while(!flag){
+                for(Object cidadeJson : distancias){
+                    //Converte em um JSONObject para poder acessar os parametros de cada cidade
+                    JSONObject cidadeObj = (JSONObject) cidadeJson;
+
+                    if(cidadeObj.containsValue(cidade.toUpperCase())){ //Verifica se contem o valor da cidade
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    throw new CidadeInexistenteException("Cidade ou Destino Invalidos!"); //se for falso, retorna uma exception
                 }
             }
-            if(!flag){
-                throw new CidadeInexistenteException("Cidade ou Destino Invalidos!"); //se for falso, retorna uma exception
-            }
+        }catch (NullPointerException e){
+            System.err.println("Campos invalidos! Digite os campos corretamente!");
         }
+
 
         return flag;
     }

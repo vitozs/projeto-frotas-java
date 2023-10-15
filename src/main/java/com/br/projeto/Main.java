@@ -1,6 +1,7 @@
 package com.br.projeto;
 import com.br.projeto.calculadora.Calculadora;
 import com.br.projeto.calculadora.MelhorFrotaCaminhoes;
+import com.br.projeto.exeptions.CidadeInexistenteException;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
 import com.br.projeto.pdf.Relatorio;
 import com.br.projeto.pdf.RelatorioPDF;
@@ -119,6 +120,7 @@ public class Main {
             pesoTotalProdutos += produto.getPeso() * produto.getQuantidade();
             qtdTotal += produto.getQuantidade();
         }
+
         recebeCidade(calculadora);
 
         distanciaTotal = calculadora.getDistanciaEntreCidades();
@@ -195,16 +197,30 @@ public class Main {
 
     private static void recebeCidade(Calculadora calculadora){
         String cidadeOrigem, cidadeDestino;
-
+        boolean flag = false;
         scan.nextLine();
-        System.out.println("----------------------");
-        System.out.println("Digite a cidade de origem: ");
-        cidadeOrigem = scan.nextLine();
-        calculadora.setCidade(cidadeOrigem);
+        while (!flag){
+            try {
 
-        System.out.println("Digite a cidade de destino: ");
-        cidadeDestino = scan.nextLine();
-        calculadora.setDestino(cidadeDestino);
+                System.out.println("----------------------");
+                System.out.println("Digite a cidade de origem: ");
+                cidadeOrigem = scan.nextLine();
+                calculadora.setCidade(cidadeOrigem);
+
+                System.out.println("Digite a cidade de destino: ");
+                cidadeDestino = scan.nextLine();
+                calculadora.setDestino(cidadeDestino);
+
+                flag = true;
+            }catch (CidadeInexistenteException e){
+
+                System.err.println(e.getMessage());
+
+            }
+
+        }
+
+
 
     }
 
