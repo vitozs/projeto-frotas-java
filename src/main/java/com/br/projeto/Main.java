@@ -132,7 +132,7 @@ public class Main {
 
         System.out.println("----------------------");
         System.out.println("Distancia total: " + distanciaTotal + " Km");
-        System.out.println("Peso total: " + pesoTotalProdutos + " Kg");
+        System.out.printf("Peso total: %.2f Kg" , pesoTotalProdutos);
         System.out.printf("Custo total: R$ %.2f \n", custoTotal);
         System.out.printf("Preco unitario medio: R$ %.2f \n", mediaUnitaria );
         System.out.println("--------------------");
@@ -142,7 +142,7 @@ public class Main {
         }
         System.out.println("--------------------");
 
-        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal));
+        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal, listProdutos));
 
 
     }
@@ -226,15 +226,16 @@ public class Main {
 
     private static void enviaEmail(){
 
-        String meuEmail = "grupojaguarascaldeira@gmail.com";
-        String minhaSenha = "jaguaras1234";
+        String meuEmail = "vitornuneschagas2016@gmail.com";
+        String minhaSenha = "xefhclnyjoozecmu ";
 
         MultiPartEmail email = new MultiPartEmail();
 
         email.setHostName("smtp.gmail.com");
-        email.setSmtpPort(535);
-        email.setAuthentication(meuEmail, minhaSenha);
         email.setSSLOnConnect(true);
+        email.setSmtpPort(465);
+        email.setAuthentication(meuEmail, minhaSenha);
+
 
         try {
             email.setFrom(meuEmail);
