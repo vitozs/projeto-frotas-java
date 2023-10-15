@@ -1,6 +1,7 @@
 package com.br.projeto.veiculos;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 //Exemplo de HashMap com os
 //[String],[Veiculo]
@@ -10,11 +11,11 @@ import java.util.HashMap;
 
 public class CaminhoesHashMap {
 
-    public static HashMap<String, Veiculo> hashMapVeiculos() {
-        CaminhaoPequeno caminhaoPequeno = new CaminhaoPequeno();
-        CaminhaoMedio caminhaoMedio = new CaminhaoMedio();
+    public static LinkedHashMap<String, Veiculo> hashMapVeiculos() {
         CaminhaoGrande caminhaoGrande = new CaminhaoGrande();
-        HashMap<String, Veiculo> caminhoes = new HashMap<>();
+        CaminhaoMedio caminhaoMedio = new CaminhaoMedio();
+        CaminhaoPequeno caminhaoPequeno = new CaminhaoPequeno();
+        LinkedHashMap<String, Veiculo> caminhoes = new LinkedHashMap<>();
 
         caminhoes.put("GRANDE", caminhaoGrande);
         caminhoes.put("MEDIO", caminhaoMedio);
