@@ -2,12 +2,18 @@ package com.br.projeto;
 import com.br.projeto.calculadora.Calculadora;
 import com.br.projeto.calculadora.MelhorFrotaCaminhoes;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
+import com.br.projeto.pdf.Relatorio;
+import com.br.projeto.pdf.RelatorioPDF;
 import com.br.projeto.produtos.Produtos;
 import com.br.projeto.tratamentoDadosEstatisticos.TratarDados;
 import com.br.projeto.tratamentoDadosEstatisticos.Viagem;
 import com.br.projeto.util.JsonReader;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.MultiPartEmail;
+import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -139,7 +145,10 @@ public class Main {
 
     }
     private static void dadosEstatisticos(){
-        //altere nome do metodo para chamada da class com o metodo
+
+
+        Relatorio relatorio = new RelatorioPDF();
+
         System.out.println("==========================");
         System.out.println("||                      ||");
         System.out.println("||      RELATORIO       ||");
@@ -152,6 +161,15 @@ public class Main {
         System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
         System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
+
+
+        relatorio.gerarCabecalho();
+        relatorio.imprimir();
+
+        System.out.println("Tambem Gramos um PDF com todas essas informacoes para voce!!!");
+        System.out.println("Voce Pode encontrado la pasta relatorios");
+
+        enviaEmail();
     }
 
     private static String loopContinuar(){
@@ -188,6 +206,40 @@ public class Main {
         cidadeDestino = scan.nextLine();
         calculadora.setDestino(cidadeDestino);
 
+    }
+
+    private static void enviaEmail(){
+
+        String meuEmail = "grupojaguarascaldeira@gmail.com";
+        String minhaSenha = "jaguaras1234";
+
+        MultiPartEmail email = new MultiPartEmail();
+
+        email.setHostName("smtp.gmail.com");
+        email.setSmtpPort(535);
+        email.setAuthentication(meuEmail, minhaSenha);
+        email.setSSLOnConnect(true);
+
+        try {
+            email.setFrom(meuEmail);
+            email.setSubject("Envio do relatorio de Entregas");
+            email.setMsg("Segue em anexo o relatorio");
+            email.addTo(meuEmail);
+
+            EmailAttachment anexo = new EmailAttachment();
+
+            anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
+
+            anexo.setName("Arquivo_Relatorio_Entregas.pdf");
+
+            email.attach(anexo);
+
+            email.send();
+            System.out.println("Email enviado com sucesso!!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
