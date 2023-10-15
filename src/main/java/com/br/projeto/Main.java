@@ -17,8 +17,7 @@ public class Main {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         int opcao = 0;
-        Scanner scanner = new Scanner(System.in);
-        listarCidades();
+        //listarCidades();
 
         while(opcao != 4){
 
@@ -32,14 +31,14 @@ public class Main {
                 Escolha sua Opção:
                 """);
             try {
-                opcao = scanner.nextInt();
+                opcao = scan.nextInt();
                 if (opcao < 1 || opcao > 4)
                     throw new OpcaoInvalidaException("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
-                scanner.next();
+                scan.next();
             }
             switch (opcao){
                 case 1 -> metodo1();
@@ -67,21 +66,27 @@ public class Main {
         String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
         Calculadora calculadora = new Calculadora();
 
-
+        scan.nextLine();
         System.out.println("Digite a cidade de origem: ");
         cidadeOrigem = scan.nextLine();
+        calculadora.setCidade(cidadeOrigem);
+
         System.out.println("Digite a cidade de destino: ");
         cidadeDestino = scan.nextLine();
+        calculadora.setDestino(cidadeDestino);
+
         System.out.println("Selecione o tamanho do caminhao: ");
         for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
             System.out.println(tamanho);
         }
         tamanhoCaminhao = scan.next();
-        calculadora.setCidade(cidadeOrigem);
-        calculadora.setDestino(cidadeDestino);
+
+
         calculadora.setTamanhoCaminhao(tamanhoCaminhao);
-        System.out.println("Distancia total: " + calculadora.getDistanciaEntreCidades());
-        System.out.println("Valor total estimado: " + calculadora.valorTotal());
+        System.out.println("------------------------");
+        System.out.println("Distancia total: " + calculadora.getDistanciaEntreCidades() + " Km" );
+        System.out.printf("Valor total estimado: R$ %.2f \n", calculadora.valorTotal());
+        System.out.println("------------------------");
 
 
 
@@ -93,15 +98,19 @@ public class Main {
         Produtos produtos = new Produtos();
         String opt = "";
         Calculadora calculadora = new Calculadora();
-        String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
-        double distanciaTotal = 0, custoTotal = 0, mediaUnitaria = 0;
-        List<Produtos> listProdutos = null;
+        String cidadeOrigem, cidadeDestino;
+        double distanciaTotal, custoTotal, mediaUnitaria;
+        List<Produtos> listProdutos;
         double pesoTotalProdutos = 0;
+
         int qtdTotal = 0;
-        while(!Objects.equals(opt, "n")){
+        while(!Objects.equals(opt, "n") && !Objects.equals(opt, "N")){
             produtos.adicionarProduto();
             System.out.println("Deseja continuar? (s/n) ");
             opt = scan.next();
+            if(!Objects.equals(opt, "S") && !Objects.equals(opt, "s") && !Objects.equals(opt, "N") && !Objects.equals(opt, "n")){
+                throw new OpcaoInvalidaException("Opcao invalida!");
+            }
         }
 
         listProdutos = produtos.getProdutosList();
@@ -111,17 +120,17 @@ public class Main {
             qtdTotal += produto.getQuantidade();
         }
         scan.nextLine();
+
         System.out.println("----------------------");
         System.out.println("Digite a cidade origem: ");
         cidadeOrigem = scan.nextLine();
+        calculadora.setCidade(cidadeOrigem);
+
         System.out.println("Digite a cidade destino: ");
         cidadeDestino = scan.nextLine();
-
-        calculadora.setCidade(cidadeOrigem);
         calculadora.setDestino(cidadeDestino);
 
         distanciaTotal = calculadora.getDistanciaEntreCidades();
-
 
         List<Veiculo> melhorCombinacao = MelhorFrotaCaminhoes.encontraMelhorFrota(CaminhoesHashMap.hashMapVeiculos(), pesoTotalProdutos, calculadora.getDistanciaEntreCidades());
 
@@ -131,7 +140,7 @@ public class Main {
         System.out.println("----------------------");
         System.out.println("Distancia total: " + distanciaTotal + " Km");
         System.out.println("Peso total: " + pesoTotalProdutos + " Kg");
-        System.out.printf("Custo total: R$%.2f \n", custoTotal);
+        System.out.printf("Custo total: R$ %.2f \n", custoTotal);
         System.out.printf("Preco unitario medio: R$ %.2f \n", mediaUnitaria );
         System.out.println("--------------------");
         System.out.println("Caminhoes usados: ");
@@ -153,11 +162,11 @@ public class Main {
         System.out.println("==========================");
         TratarDados.custoPorTrecho();
         System.out.println("--------------------------");
-        System.out.printf("\nCusto total das viagens: %.2f \n" , TratarDados.custoTotalViagens());
+        System.out.printf("\nCusto total das viagens: R$ %.2f \n" , TratarDados.custoTotalViagens());
         System.out.println("Numero total de veiculos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
         System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
-        System.out.printf("\nCusto medio por Km: %.2f \n",  TratarDados.custoMedioPorKm());
+        System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
     }
 
 
