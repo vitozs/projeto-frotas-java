@@ -37,11 +37,11 @@ public class RelatorioPDF implements Relatorio {
         Paragraph paragrafoTitulo = new Paragraph();
 
         paragrafoTitulo.setAlignment(Element.ALIGN_CENTER);
-        paragrafoTitulo.add(new Chunk("RELATÓRIO DE ENTREGAS", new Font(Font.HELVETICA, 24)));
+        paragrafoTitulo.add(new Chunk("RELATORIO DE ENTREGAS", new Font(Font.HELVETICA, 24)));
 
         this.documento.add(paragrafoTitulo);
 
-        this.documento.add(new Paragraph(" "));
+        pulaLinha();
 
         Paragraph paragraTransportadora = new Paragraph();
 
@@ -50,14 +50,14 @@ public class RelatorioPDF implements Relatorio {
 
         this.documento.add(paragraTransportadora);
 
-        this.documento.add(new Paragraph(" "));
-        this.documento.add(new Paragraph(" "));
-        
+        pulaLinha();
+        pulaLinha();
+
         Paragraph paragrafoDivisao = new Paragraph("----------------------------------------------------------------");
         paragrafoDivisao.setAlignment(Element.ALIGN_CENTER);
 
-         this.documento.add(new Paragraph(" "));
-         this.documento.add(new Paragraph(" "));
+        pulaLinha();
+        pulaLinha();
 
          gerarConteudo();
 
@@ -83,20 +83,21 @@ public class RelatorioPDF implements Relatorio {
             com.lowagie.text.List list = new com.lowagie.text.List();
             list.add("Cidade de origem: " + viagem.getCidadeOrigem());
             list.add("Cidade de destino: " + viagem.getCidadeDestino());
-            list.add("Distância total: " + df.format(viagem.getDistanciaTotal()) + " Km");
+            list.add("Distancia total: " + df.format(viagem.getDistanciaTotal()) + " Km");
             list.add("Peso total: " + df.format(viagem.getPesoTotal()) + " Kg");
             list.add("Custo total: R$ " + df.format(viagem.getCustoTotal()));
 
             for (Map.Entry<Veiculo, Long> entry : veiculoMap.entrySet()) {
                  veiculos += " " + entry.getValue().toString() + " " + entry.getKey().getTipo();
             }
-            list.add("Veículos usados: " + veiculos);
+            list.add("Veiculos usados: " + veiculos);
             list.add("Produtos: " +  viagem.getListaProdutos().stream().map(v -> v.getNome() + " ").collect(Collectors.joining()));
             list.add("Qtd. Total de produtos: " +  viagem.getQtdTotalProdutos());
-            list.add("Preço unitário medio: R$ " + df.format(viagem.getPrecoUnitario()));
+            list.add("Preco unitario medio: R$ " + df.format(viagem.getPrecoUnitario()));
             documento.add(list);
-            this.documento.add(new Paragraph(" "));
-            this.documento.add(new Paragraph(" "));
+            pulaLinha();
+            pulaLinha();
+
         }
 
 
@@ -106,10 +107,10 @@ public class RelatorioPDF implements Relatorio {
         paragrafoCustoTotal.setAlignment(Element.ALIGN_LEFT);
         paragrafoCustoTotal.add(new Chunk("CUSTO TOTAL: ", new Font(Font.BOLD, 16)));
         documento.add(paragrafoCustoTotal);
-        documento.add(new Paragraph(" "));
+        pulaLinha();
 
         documento.add(new Paragraph("Custo total: R$ " + df.format(TratarDados.custoTotalViagens())));
-        documento.add(new Paragraph("Total de veículos usados: " + TratarDados.numeroTotalVeiculosTransportados()));
+        documento.add(new Paragraph("Total de veiculos usados: " + TratarDados.numeroTotalVeiculosTransportados()));
         documento.add(new Paragraph("Total de produtos transportados: " + TratarDados.numeroTotalProdutos()));
         documento.add(new Paragraph("Total por modalidade: "));
         com.lowagie.text.List listaModalidade = new com.lowagie.text.List();
@@ -119,15 +120,61 @@ public class RelatorioPDF implements Relatorio {
             }
         }
         documento.add(listaModalidade);
-        documento.add(new Paragraph("Custo médio por Km: R$ " + df.format(TratarDados.custoMedioPorKm())));
+        documento.add(new Paragraph("Custo medio por Km: R$ " + df.format(TratarDados.custoMedioPorKm())));
 
+        pulaLinha();
+        pulaLinha();
+        pulaLinha();
+        pulaLinha();
+        pulaLinha();
+        pulaLinha();
 
+        gerarRodape();
 
     }
 
     @Override
     public void gerarRodape() {
+        Paragraph rodape = new Paragraph();
 
+        rodape.setAlignment(Element.ALIGN_CENTER);
+        rodape.add(new Chunk("Desenvolvido por: ", new Font(Font.HELVETICA, 14)));
+        documento.add(rodape);
+
+        Paragraph gabriel = new Paragraph();
+
+        gabriel.setAlignment(Element.ALIGN_CENTER);
+        gabriel.add(new Chunk("Gabriel Kretzmann", new Font(Font.HELVETICA, 10)));
+        documento.add(gabriel);
+
+        Paragraph iago = new Paragraph();
+
+        iago.setAlignment(Element.ALIGN_CENTER);
+        iago.add(new Chunk("Iago Cappeletti", new Font(Font.HELVETICA, 10)));
+        documento.add(iago);
+        Paragraph moises = new Paragraph();
+
+        moises.setAlignment(Element.ALIGN_CENTER);
+        moises.add(new Chunk("Moises Briceno", new Font(Font.HELVETICA, 10)));
+        documento.add(moises);
+
+        Paragraph robert = new Paragraph();
+
+        robert.setAlignment(Element.ALIGN_CENTER);
+        robert.add(new Chunk("Robert Perquim", new Font(Font.HELVETICA, 10)));
+        documento.add(robert);
+
+        Paragraph vitor = new Paragraph();
+
+        vitor.setAlignment(Element.ALIGN_CENTER);
+        vitor.add(new Chunk("Vitor Nunes", new Font(Font.HELVETICA, 10)));
+        documento.add(vitor);
+
+        imprimir();
+    }
+
+    private void pulaLinha(){
+        this.documento.add(new Paragraph(" "));
     }
 
     @Override
