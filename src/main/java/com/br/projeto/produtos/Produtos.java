@@ -92,14 +92,14 @@ public class Produtos {
                 System.out.println("Digite o id do produto: ");
                 idSelecionado = scanner.nextInt();
                 if(idSelecionado > 8 || idSelecionado < 0){
-                    throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
+                    throw new ProdutoNaoEncontradoException("Id de produto não encontrado!");
                 }
 
             } catch (ProdutoNaoEncontradoException e){
                 System.err.println(e.getMessage());
                 controle = false;
             }catch (InputMismatchException e){
-                System.err.println("Campo digitado invalido! Digite um valor valido");
+                System.err.println("Campo digitado inválido! Digite um valor válido");
                 scanner.next();
                 controle = false;
             }
@@ -119,14 +119,14 @@ public class Produtos {
                 System.out.println("Digite a quantidade de produtos: ");
                 quantidadeProduto = scanner.nextInt();
                 if(quantidadeProduto <= 0){
-                    throw new QuantidadeInvalidaException("Quantidade Invalida! Por favor, digite uma quantidade valida!");
+                    throw new QuantidadeInvalidaException("Quantidade Inválida! Por favor, digite uma quantidade válida!");
                 }
 
             } catch (QuantidadeInvalidaException e){
                 System.err.println(e.getMessage());
                 controle = false;
             }catch (InputMismatchException e){
-                System.err.println("Campo digitado invalido! Digite um valor valido");
+                System.err.println("Campo digitado inválido! Digite um valor válido");
                 scanner.next();
                 controle = false;
             }
