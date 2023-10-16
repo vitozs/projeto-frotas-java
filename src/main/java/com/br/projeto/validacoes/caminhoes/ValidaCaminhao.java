@@ -1,6 +1,6 @@
 package com.br.projeto.validacoes.caminhoes;
 
-import com.br.projeto.exeptions.CidadeInexistenteException;
+import com.br.projeto.exeptions.CaminhaoInexistenteException;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 
 
@@ -17,7 +17,7 @@ public class ValidaCaminhao {
                     }
                 }
                 if(!flag){
-                    throw new CidadeInexistenteException("Caminhão Inválido!"); //se for falso, retorna uma exception
+                    throw new CaminhaoInexistenteException("Caminhão Inválido!"); //se for falso, retorna uma exception
                 }
             }
         }catch (NullPointerException e){
