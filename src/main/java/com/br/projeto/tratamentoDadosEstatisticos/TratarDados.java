@@ -56,11 +56,13 @@ public class TratarDados {
 
     public static double custoMedioPorKm(){
         double valorTotal = 0;
+        double kmTotal = 0;
         double media = 0;
         for (Viagem viagem : viagens){
             valorTotal += viagem.getCustoTotal();
+            kmTotal += viagem.getDistanciaTotal();
         }
-        media = valorTotal / viagens.size();
+        media = valorTotal / kmTotal;
         return media;
     }
 

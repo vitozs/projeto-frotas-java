@@ -162,7 +162,8 @@ public class Main {
         System.out.println("Número total de veículos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
         System.out.println("Número total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
-        System.out.printf("\nCústo médio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
+
+        System.out.printf("\nCusto médio por Km: R$ %.2f \n",  TratarDados.custoMedioPorKm());
 
 
         relatorio.gerarCabecalho();
@@ -239,10 +240,12 @@ public class Main {
 
         try {
             email.setFrom(meuEmail);
+
             email.setSubject("Envio do relatório de Entregas");
             email.setMsg("Segue em anexo o relatório");
-            email.addTo("vitornuneschagas2016@gmail.com");
-
+            email.addTo("perquimrobert@gmail.com");
+            email.addTo("moisesbricenomedina29@gmail.com");
+            email.addTo("gabrielkretzmanndasilva@hotmail.com");
             EmailAttachment anexo = new EmailAttachment();
 
             anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
