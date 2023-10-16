@@ -29,25 +29,25 @@ public class Main {
         while(opcao != 6){
 
             System.out.println("""
-                Bem Vindo!!
-                Menu                              \s
+                Seja Bem Vindo a Trasportadora Amarelinha!!
+                O que você deseja fazer:                              \s
                 1 -  Consultar Trechos e Modalidades
-                2 -  Cadastrar transporte
-                3 -  Dados estatísticos
-                4 - Listar Cidades
-                5 - Listar Produtos
-                6  - Encerrar Programa
+                2 -  Cadastrar Transporte
+                3 -  Dados Estatísticos
+                4 -  Listar Cidades
+                5 -  Listar Produtos
+                6 -  Encerrar Programa
                 Escolha sua Opção:
                 """);
             try {
                 opcao = scan.nextInt();
                 if (opcao < 1 || opcao > 6)
-                    throw new OpcaoInvalidaException("Opcao invalida. Por favor, escolha uma opcao valida (1 a 4)");
+                    throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção valida (1 à 4)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
-                System.err.println("Opcao invalida. Por favor, escolha um numero inteiro de (1 a 4)");
+                System.err.println("Opção inválida. Por favor, escolha um número inteiro de (1 à 4)");
                 scan.next();
             }
             switch (opcao){
@@ -83,7 +83,7 @@ public class Main {
 
         recebeCidade(calculadora);
 
-        System.out.println("Selecione o tamanho do caminhao: ");
+        System.out.println("Selecione o tamanho do caminhão: ");
         for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
             System.out.println(tamanho);
         }
@@ -92,7 +92,7 @@ public class Main {
 
         calculadora.setTamanhoCaminhao(tamanhoCaminhao);
         System.out.println("------------------------");
-        System.out.println("Distancia total: " + calculadora.getDistanciaEntreCidades() + " Km" );
+        System.out.println("Distância total: " + calculadora.getDistanciaEntreCidades() + " Km" );
         System.out.printf("Valor total estimado: R$ %.2f \n", calculadora.valorTotal());
         System.out.println("------------------------");
 
@@ -131,12 +131,12 @@ public class Main {
         mediaUnitaria = (MelhorFrotaCaminhoes.menorCustoTotal / qtdTotal);
 
         System.out.println("----------------------");
-        System.out.println("Distancia total: " + distanciaTotal + " Km");
-        System.out.printf("Peso total: %.2f Kg" , pesoTotalProdutos);
+        System.out.println("Distância total: " + distanciaTotal + " Km");
+        System.out.printf("Peso total: %.2f Kg \n" , pesoTotalProdutos);
         System.out.printf("Custo total: R$ %.2f \n", custoTotal);
-        System.out.printf("Preco unitario medio: R$ %.2f \n", mediaUnitaria );
+        System.out.printf("Preço unitário médio: R$ %.2f \n", mediaUnitaria );
         System.out.println("--------------------");
-        System.out.println("Caminhoes usados: ");
+        System.out.println("Caminhões usados: ");
         for (Veiculo veiculo : melhorCombinacao){
             System.out.println(veiculo.getTipo());
         }
@@ -153,23 +153,23 @@ public class Main {
 
         System.out.println("==========================");
         System.out.println("||                      ||");
-        System.out.println("||      RELATORIO       ||");
+        System.out.println("||      RELATÓRIO       ||");
         System.out.println("||                      ||");
         System.out.println("==========================");
         TratarDados.custoPorTrecho();
         System.out.println("--------------------------");
         System.out.printf("\nCusto total das viagens: R$ %.2f \n" , TratarDados.custoTotalViagens());
-        System.out.println("Numero total de veiculos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
-        System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
+        System.out.println("Número total de veículos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
+        System.out.println("Número total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
-        System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
+        System.out.printf("\nCústo médio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
 
 
         relatorio.gerarCabecalho();
         relatorio.imprimir();
 
-        System.out.println("Tambem Gramos um PDF com todas essas informacoes para voce!!!");
-        System.out.println("Voce Pode encontrado la pasta relatorios");
+        System.out.println("Também geramos um PDF com todas essas informações para você!!!");
+        System.out.println("Você pode encontrar na pasta relatórios");
 
         enviaEmail();
     }
@@ -184,7 +184,7 @@ public class Main {
                 System.out.println("Deseja continuar? (s/n) ");
                 opcao = scan.next().toUpperCase();
                 if(!Objects.equals(opcao, "S") && !Objects.equals(opcao, "N")){
-                    throw new OpcaoInvalidaException("Opcao invalida!");
+                    throw new OpcaoInvalidaException("Opção inválida!");
                 }
             }catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
@@ -239,20 +239,20 @@ public class Main {
 
         try {
             email.setFrom(meuEmail);
-            email.setSubject("Envio do relatorio de Entregas");
-            email.setMsg("Segue em anexo o relatorio");
+            email.setSubject("Envio do relatório de Entregas");
+            email.setMsg("Segue em anexo o relatório");
             email.addTo("vitornuneschagas2016@gmail.com");
 
             EmailAttachment anexo = new EmailAttachment();
 
             anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
 
-            anexo.setName("Arquivo_Relatorio_Entregas.pdf");
+            anexo.setName("Arquivo_Relatório_Entregas.pdf");
 
             email.attach(anexo);
 
             email.send();
-            System.out.println("Email enviado com sucesso!!");
+            System.out.println("E-mail enviado com sucesso!!");
 
         }catch (Exception e){
             e.printStackTrace();
