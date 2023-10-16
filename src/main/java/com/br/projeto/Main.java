@@ -250,7 +250,7 @@ public class Main {
 
             anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
 
-            anexo.setName("Arquivo_Relatório_Entregas.pdf");
+            anexo.setName("Arquivo_Relatorio_Entregas.pdf");
 
             email.attach(anexo);
 
