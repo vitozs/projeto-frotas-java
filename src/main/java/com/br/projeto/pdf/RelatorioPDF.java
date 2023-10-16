@@ -26,7 +26,7 @@ public class RelatorioPDF implements Relatorio {
              PdfWriter.getInstance(this.documento, new FileOutputStream(caminhoRelatorio));
              this.documento.open();
         }catch (DocumentException | FileNotFoundException e){
-            System.err.println("Nao foi possivel gerar o Relatorio");
+            System.err.println("Não foi possível gerar o Relatório");
         }
 
     }
@@ -36,7 +36,7 @@ public class RelatorioPDF implements Relatorio {
         Paragraph paragrafoTitulo = new Paragraph();
 
         paragrafoTitulo.setAlignment(Element.ALIGN_CENTER);
-        paragrafoTitulo.add(new Chunk("RELATORIO DE ENTREGAS", new Font(Font.HELVETICA, 24)));
+        paragrafoTitulo.add(new Chunk("RELATÓRIO DE ENTREGAS", new Font(Font.HELVETICA, 24)));
 
         this.documento.add(paragrafoTitulo);
 
@@ -80,12 +80,12 @@ public class RelatorioPDF implements Relatorio {
 
             this.documento.add(new Paragraph("Trecho " + (viagens.indexOf(viagem)+1), new Font(Font.BOLD, 12)));
             com.lowagie.text.List list = new com.lowagie.text.List();
-            list.add("Distancia total: " + df.format(viagem.getDistanciaTotal()) + " Km");
+            list.add("Distância total: " + df.format(viagem.getDistanciaTotal()) + " Km");
             list.add("Peso total: " + df.format(viagem.getPesoTotal()) + " Kg");
             list.add("Custo total: R$ " + df.format(viagem.getCustoTotal()));
-            list.add("Veiculos usados: " + listaVeiculos.stream().map(v -> v.getTipo() + " ").collect(Collectors.joining()));
+            list.add("Veículos usados: " + listaVeiculos.stream().map(v -> v.getTipo() + " ").collect(Collectors.joining()));
             list.add("Produtos: " + viagem.getListaProdutos().stream().map(v -> v.getNome() + " ").collect(Collectors.joining()));
-            list.add("Preco unitario: R$ " + df.format(viagem.getPrecoUnitario()));
+            list.add("Preço unitário: R$ " + df.format(viagem.getPrecoUnitario()));
             documento.add(list);
             this.documento.add(new Paragraph(" "));
             this.documento.add(new Paragraph(" "));
@@ -99,7 +99,7 @@ public class RelatorioPDF implements Relatorio {
         documento.add(new Paragraph(" "));
 
         documento.add(new Paragraph("Custo total: R$ " + df.format(TratarDados.custoTotalViagens())));
-        documento.add(new Paragraph("Total de veiculos usados: " + TratarDados.numeroTotalVeiculosTransportados()));
+        documento.add(new Paragraph("Total de veículos usados: " + TratarDados.numeroTotalVeiculosTransportados()));
         documento.add(new Paragraph("Total de produtos transportados: " + TratarDados.numeroTotalProdutos()));
         documento.add(new Paragraph("Total por modalidade: "));
         com.lowagie.text.List listaModalidade = new com.lowagie.text.List();
@@ -109,7 +109,7 @@ public class RelatorioPDF implements Relatorio {
             }
         }
         documento.add(listaModalidade);
-        documento.add(new Paragraph("Custo medio por Km: R$ " + df.format(TratarDados.custoMedioPorKm())));
+        documento.add(new Paragraph("Custo médio por Km: R$ " + df.format(TratarDados.custoMedioPorKm())));
 
 
 
