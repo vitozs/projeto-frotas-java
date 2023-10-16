@@ -83,14 +83,10 @@ public class Main {
 
         recebeCidade(calculadora);
 
-        System.out.println("Selecione o tamanho do caminhão: ");
-        for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
-            System.out.println(tamanho);
-        }
-        tamanhoCaminhao = scan.next();
+
+        recebeTamanhoCaminhao(calculadora);
 
 
-        calculadora.setTamanhoCaminhao(tamanhoCaminhao);
 
         System.out.println("------------------------");
         System.out.println("Distância total: " + calculadora.getDistanciaEntreCidades() + " Km" );
@@ -207,7 +203,30 @@ public class Main {
         return opcao;
     }
 
+    private static void recebeTamanhoCaminhao(Calculadora calculadora){
+        String tamanhoCaminhao;
+        boolean flag = false;
 
+        while (!flag){
+            try {
+
+                System.out.println("Caminhões Disponíveis: ");
+                for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
+                    System.out.println(tamanho);
+                }
+                System.out.println("Selecione o tamanho do caminhão: ");
+                tamanhoCaminhao = scan.next();
+                calculadora.setTamanhoCaminhao(tamanhoCaminhao);
+
+                flag = true;
+            }catch (CidadeInexistenteException e){
+
+                System.err.println(e.getMessage());
+
+            }
+
+        }
+    }
     private static void recebeCidade(Calculadora calculadora){
         String cidadeOrigem, cidadeDestino;
         boolean flag = false;
@@ -232,8 +251,6 @@ public class Main {
             }
 
         }
-
-
 
     }
 
