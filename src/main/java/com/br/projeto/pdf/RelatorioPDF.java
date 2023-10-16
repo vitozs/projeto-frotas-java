@@ -69,7 +69,7 @@ public class RelatorioPDF implements Relatorio {
         Paragraph paragrafoCustoTrecho = new Paragraph();
 
         paragrafoCustoTrecho.setAlignment(Element.ALIGN_LEFT);
-        paragrafoCustoTrecho.add(new Chunk("Custo por trecho: ", new Font(Font.BOLD, 16)));
+        paragrafoCustoTrecho.add(new Chunk("CUSTO POR TRECHO: ", new Font(Font.BOLD, 16)));
         documento.add(paragrafoCustoTrecho);
         documento.add(new Paragraph(" "));
         List<Viagem> viagens = TratarDados.getViagens();
@@ -79,7 +79,7 @@ public class RelatorioPDF implements Relatorio {
             List<Veiculo> listaVeiculos = viagem.getCombinacaoVeiculos();
             Map<Veiculo, Long> veiculoMap = listaVeiculos.stream().collect(Collectors.groupingBy(v -> v, Collectors.counting()));
             String veiculos = "";
-            this.documento.add(new Paragraph("Trecho " + (viagens.indexOf(viagem)+1), new Font(Font.BOLD, 12)));
+            this.documento.add(new Paragraph("TRECHO " + (viagens.indexOf(viagem)+1), new Font(Font.BOLD, 14)));
             com.lowagie.text.List list = new com.lowagie.text.List();
             list.add("Cidade de origem: " + viagem.getCidadeOrigem());
             list.add("Cidade de destino: " + viagem.getCidadeDestino());
@@ -92,7 +92,8 @@ public class RelatorioPDF implements Relatorio {
             }
             list.add("Veículos usados: " + veiculos);
             list.add("Produtos: " +  viagem.getListaProdutos().stream().map(v -> v.getNome() + " ").collect(Collectors.joining()));
-            list.add("Preço unitário: R$ " + df.format(viagem.getPrecoUnitario()));
+            list.add("Qtd. Total de produtos: " +  viagem.getQtdTotalProdutos());
+            list.add("Preço unitário medio: R$ " + df.format(viagem.getPrecoUnitario()));
             documento.add(list);
             this.documento.add(new Paragraph(" "));
             this.documento.add(new Paragraph(" "));
@@ -103,7 +104,7 @@ public class RelatorioPDF implements Relatorio {
         Paragraph paragrafoCustoTotal = new Paragraph();
 
         paragrafoCustoTotal.setAlignment(Element.ALIGN_LEFT);
-        paragrafoCustoTotal.add(new Chunk("Custo total: ", new Font(Font.BOLD, 16)));
+        paragrafoCustoTotal.add(new Chunk("CUSTO TOTAL: ", new Font(Font.BOLD, 16)));
         documento.add(paragrafoCustoTotal);
         documento.add(new Paragraph(" "));
 
