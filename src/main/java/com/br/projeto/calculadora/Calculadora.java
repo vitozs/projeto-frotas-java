@@ -69,11 +69,11 @@ public class Calculadora {
                     }
                 }
                 if(!flag){
-                    throw new CidadeInexistenteException("Cidade ou Destino Invalidos!"); //se for falso, retorna uma exception
+                    throw new CidadeInexistenteException("Cidade ou Destino Inválidos!"); //se for falso, retorna uma exception
                 }
             }
         }catch (NullPointerException e){
-            System.err.println("Campos invalidos! Digite os campos corretamente!");
+            System.err.println("Campos inválidos! Digite os campos corretamente!");
         }
 
 
