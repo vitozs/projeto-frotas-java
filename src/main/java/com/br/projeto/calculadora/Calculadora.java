@@ -1,13 +1,14 @@
 package com.br.projeto.calculadora;
 
-import com.br.projeto.exeptions.CidadeInexistenteException;
 import com.br.projeto.util.JsonReader;
+import com.br.projeto.validacoes.caminhoes.ValidaCaminhao;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.HashMap;
 import java.util.Objects;
+import com.br.projeto.validacoes.cidades.ValidaCidade;
 
 public class Calculadora {
 
@@ -17,12 +18,15 @@ public class Calculadora {
     private String tamanhoCaminhao;
     HashMap<String, Veiculo> caminhoes = CaminhoesHashMap.hashMapVeiculos();
 
+    private final ValidaCidade validaCidade = new ValidaCidade();
+    private final ValidaCaminhao validaCaminhao = new ValidaCaminhao();
+
 
     //Retorna a distancia entre as cidades passadas
     public Long getDistanciaEntreCidades(){
         Long distanciaTotal = 0L;
         //Se a cidade e o destino forem validos, pega a distancia
-        if(validadorCidadeDestino(this.cidade) && validadorCidadeDestino(this.destino)){
+        if(validaCidade.validadorCidadeDestino(this.cidade) && validaCidade.validadorCidadeDestino(this.destino)){
             //Acessa o metodo que retorna o json tratado
             JSONArray distancias = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
 
@@ -53,49 +57,26 @@ public class Calculadora {
         return distancia * custoKm;
     }
 
-    public boolean validadorCidadeDestino(String cidade) {
-        JSONArray distancias = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
-        boolean flag = false;
 
-        try {
-            while(!flag){
-                for(Object cidadeJson : distancias){
-                    //Converte em um JSONObject para poder acessar os parametros de cada cidade
-                    JSONObject cidadeObj = (JSONObject) cidadeJson;
-
-                    if(cidadeObj.containsValue(cidade.toUpperCase())){ //Verifica se contem o valor da cidade
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag){
-                    throw new CidadeInexistenteException("Cidade ou Destino Inválidos!"); //se for falso, retorna uma exception
-                }
-            }
-        }catch (NullPointerException e){
-            System.err.println("Campos inválidos! Digite os campos corretamente!");
-        }
-
-
-        return flag;
-    }
 
     public void setCidade(String cidade) {
-        if(validadorCidadeDestino(cidade.trim())){
+        if(validaCidade.validadorCidadeDestino(cidade.trim())){
             this.cidade = cidade.toUpperCase().trim();
         }
 
     }
 
     public void setDestino(String destino) {
-        if(validadorCidadeDestino(destino.trim())){
+        if(validaCidade.validadorCidadeDestino(destino.trim())){
             this.destino = destino.toUpperCase().trim();
         }
 
     }
 
     public void setTamanhoCaminhao(String tamanhoCaminhao) {
-        this.tamanhoCaminhao = tamanhoCaminhao.toUpperCase().trim();
+        if(validaCaminhao.validadorTipoCaminhao(tamanhoCaminhao.trim())){
+            this.tamanhoCaminhao = tamanhoCaminhao.toUpperCase().trim();
+        }
     }
 
     public String getCidade() {
