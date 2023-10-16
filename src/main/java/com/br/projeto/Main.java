@@ -56,7 +56,7 @@ public class Main {
                 case 3 -> dadosEstatisticos();
                 case 4 -> listarCidades();
                 case 5 -> listarProdutos();
-                case 6 -> System.out.println("Sair"); //Apenas
+                case 6 -> System.out.println("Sair");
             }
         }
 
@@ -91,6 +91,7 @@ public class Main {
 
 
         calculadora.setTamanhoCaminhao(tamanhoCaminhao);
+
         System.out.println("------------------------");
         System.out.println("Distância total: " + calculadora.getDistanciaEntreCidades() + " Km" );
         System.out.printf("Valor total estimado: R$ %.2f \n", calculadora.valorTotal());
@@ -148,31 +149,42 @@ public class Main {
     }
     private static void dadosEstatisticos(){
 
-
-        Relatorio relatorio = new RelatorioPDF();
-
-        System.out.println("==========================");
-        System.out.println("||                      ||");
-        System.out.println("||      RELATÓRIO       ||");
-        System.out.println("||                      ||");
-        System.out.println("==========================");
-        TratarDados.custoPorTrecho();
-        System.out.println("--------------------------");
-        System.out.printf("\nCusto total das viagens: R$ %.2f \n" , TratarDados.custoTotalViagens());
-        System.out.println("Número total de veículos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
-        System.out.println("Número total de produtos transportados: " + TratarDados.numeroTotalProdutos());
-        TratarDados.custoTotalPorModalidade();
-
-        System.out.printf("\nCusto médio por Km: R$ %.2f \n",  TratarDados.custoMedioPorKm());
+        try{
+            if(!TratarDados.getViagens().isEmpty()){
+                Relatorio relatorio = new RelatorioPDF();
 
 
-        relatorio.gerarCabecalho();
-        relatorio.imprimir();
+                System.out.println("==========================");
+                System.out.println("||                      ||");
+                System.out.println("||      RELATÓRIO       ||");
+                System.out.println("||                      ||");
+                System.out.println("==========================");
+                TratarDados.custoPorTrecho();
+                System.out.println("--------------------------");
+                System.out.printf("\nCusto total das viagens: R$ %.2f \n" , TratarDados.custoTotalViagens());
+                System.out.println("Número total de veículos utilizados: " + TratarDados.numeroTotalVeiculosTransportados());
+                System.out.println("Número total de produtos transportados: " + TratarDados.numeroTotalProdutos());
+                TratarDados.custoTotalPorModalidade();
 
-        System.out.println("Também geramos um PDF com todas essas informações para você!!!");
-        System.out.println("Você pode encontrar na pasta relatórios");
+                System.out.printf("\nCusto médio por Km: R$ %.2f \n",  TratarDados.custoMedioPorKm());
 
-        enviaEmail();
+
+                relatorio.gerarCabecalho();
+                relatorio.imprimir();
+
+                System.out.println("Também geramos um PDF com todas essas informações para você!!!");
+                System.out.println("Você pode encontrar na pasta relatórios");
+
+                enviaEmail();
+            }else{
+                throw new OpcaoInvalidaException("Voce nao possui entregas cadastradas!");
+            }
+        }catch (OpcaoInvalidaException e){
+            System.err.println(e.getMessage());
+        }
+
+
+
     }
 
     private static String loopContinuar(){
