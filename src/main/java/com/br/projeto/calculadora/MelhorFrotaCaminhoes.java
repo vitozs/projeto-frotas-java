@@ -34,7 +34,10 @@ public class MelhorFrotaCaminhoes {
                 double custoAtual = calcularCustoCombinacao(distanciaTotal, combinacaoAtual);
 
                 // Se o custo atual for maior do que o menorCusto pode parar a recursao pois nao precisa verificar outras possibilidades nessa direcao
-                if (custoAtual >= menorCusto) return melhorCombinacao;
+                if (custoAtual >= menorCusto) {
+                    menorCustoTotal = menorCusto;
+                    return melhorCombinacao;
+                }
 
                 menorCusto = custoAtual;
                 melhorCombinacao = combinacaoAtual;
