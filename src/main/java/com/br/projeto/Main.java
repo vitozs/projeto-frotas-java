@@ -97,6 +97,7 @@ public class Main {
         int qtdTotal = 0;
 
         while(!Objects.equals(opt, "N") ){
+            listarProdutos();
             produtos.adicionarProduto();
             opt = loopContinuar(); //recebe a opcao que o usuario digitou S ou N
         }

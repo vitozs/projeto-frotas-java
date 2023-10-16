@@ -35,7 +35,7 @@ public class Produtos {
     public void getListaDeProdutos() {
         /**/
         JSONArray produtos = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
-        System.out.println("= Lista de Produtos =");
+        System.out.println("==== Lista de Produtos ===");
         for (Object produtosJson : produtos) {
             JSONObject produto = (JSONObject) produtosJson;
             System.out.print("id: ");
@@ -45,6 +45,7 @@ public class Produtos {
             System.out.print(", peso: ");
             System.out.println(produto.get("peso"));
         }
+        System.out.println();
     }
 
 
