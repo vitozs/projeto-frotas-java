@@ -1,6 +1,7 @@
 package com.br.projeto;
 import com.br.projeto.calculadora.Calculadora;
 import com.br.projeto.calculadora.MelhorFrotaCaminhoes;
+import com.br.projeto.email.EnviaEmail;
 import com.br.projeto.exeptions.CidadeInexistenteException;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
 import com.br.projeto.pdf.Relatorio;
@@ -78,23 +79,16 @@ public class Main {
     }
 
     private static void consultarTrechosModalidades(){
-        String tamanhoCaminhao;
         Calculadora calculadora = new Calculadora();
 
         recebeCidade(calculadora);
 
-
         recebeTamanhoCaminhao(calculadora);
-
-
 
         System.out.println("------------------------");
         System.out.println("Distância total: " + calculadora.getDistanciaEntreCidades() + " Km" );
         System.out.printf("Valor total estimado: R$ %.2f \n", calculadora.valorTotal());
         System.out.println("------------------------");
-
-
-
 
     }
     private static void cadastrarTransporte(){
@@ -148,6 +142,8 @@ public class Main {
         try{
             if(!TratarDados.getViagens().isEmpty()){
                 Relatorio relatorio = new RelatorioPDF();
+                EnviaEmail enviaEmail = new EnviaEmail();
+
 
 
                 System.out.println("==========================");
@@ -171,7 +167,7 @@ public class Main {
                 System.out.println("Também geramos um PDF com todas essas informações para você!!!");
                 System.out.println("Você pode encontrar na pasta relatórios");
 
-                enviaEmail();
+                enviaEmail.enviarEmail();
             }else{
                 throw new OpcaoInvalidaException("Voce nao possui entregas cadastradas!");
             }
@@ -202,7 +198,6 @@ public class Main {
         }
         return opcao;
     }
-
     private static void recebeTamanhoCaminhao(Calculadora calculadora){
         String tamanhoCaminhao;
         boolean flag = false;
@@ -254,41 +249,6 @@ public class Main {
 
     }
 
-    private static void enviaEmail(){
 
-        String meuEmail = "amarelinhaapp@gmail.com";
-        String minhaSenha = "fazaprhtdqftvqbs";
-
-        MultiPartEmail email = new MultiPartEmail();
-
-        email.setHostName("smtp.gmail.com");
-        email.setSSLOnConnect(true);
-        email.setSmtpPort(465);
-        email.setAuthentication(meuEmail, minhaSenha);
-
-
-        try {
-            email.setFrom(meuEmail);
-
-            email.setSubject("Envio do relatório de Entregas");
-            email.setMsg("Segue em anexo o relatório");
-            email.addTo("perquimrobert@gmail.com");
-            email.addTo("moisesbricenomedina29@gmail.com");
-            email.addTo("gabrielkretzmanndasilva@hotmail.com");
-            EmailAttachment anexo = new EmailAttachment();
-
-            anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
-
-            anexo.setName("Arquivo_Relatorio_Entregas.pdf");
-
-            email.attach(anexo);
-
-            email.send();
-            System.out.println("E-mail enviado com sucesso!!");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 }
