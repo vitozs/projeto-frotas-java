@@ -49,7 +49,7 @@ public class TratarDados {
         for (Viagem viagem : viagens){
             List<Veiculo> veiculos = viagem.getCombinacaoVeiculos();
             for (Veiculo veiculo : veiculos){
-                System.out.printf("Total veiculo " + veiculo.getTipo() + ": R$ %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
+                System.out.printf("Total veículo " + veiculo.getTipo() + ": R$ %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
             }
         }
     }
