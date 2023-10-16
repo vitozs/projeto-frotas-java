@@ -18,7 +18,7 @@ public class CaminhoesHashMap {
         LinkedHashMap<String, Veiculo> caminhoes = new LinkedHashMap<>();
 
         caminhoes.put("GRANDE", caminhaoGrande);
-        caminhoes.put("MEDIO", caminhaoMedio);
+        caminhoes.put("MÉDIO", caminhaoMedio);
         caminhoes.put("PEQUENO", caminhaoPequeno);
 
         return caminhoes;
