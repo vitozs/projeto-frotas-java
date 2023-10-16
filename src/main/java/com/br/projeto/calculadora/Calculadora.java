@@ -97,4 +97,12 @@ public class Calculadora {
     public void setTamanhoCaminhao(String tamanhoCaminhao) {
         this.tamanhoCaminhao = tamanhoCaminhao.toUpperCase().trim();
     }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
 }

@@ -142,7 +142,7 @@ public class Main {
         }
         System.out.println("--------------------");
 
-        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal, listProdutos));
+        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal, listProdutos, calculadora.getCidade(), calculadora.getDestino()));
 
 
     }

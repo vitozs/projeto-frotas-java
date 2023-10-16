@@ -13,10 +13,12 @@ public class Viagem {
     private double PrecoUnitario;
     private List<Veiculo> CombinacaoVeiculos;
     private List<Produtos> listaProdutos;
+    private String cidadeOrigem;
+    private String cidadeDestino;
 
 
     private int qtdTotalProdutos;
-    public Viagem(double distanciaTotal, double pesoTotal, double custoTotal, double precoUnitario, List<Veiculo> combinacaoVeiculos, int qtdTotal, List<Produtos> listaProdutos) {
+    public Viagem(double distanciaTotal, double pesoTotal, double custoTotal, double precoUnitario, List<Veiculo> combinacaoVeiculos, int qtdTotal, List<Produtos> listaProdutos, String cidadeOrigem, String cidadeDestino) {
         DistanciaTotal = distanciaTotal;
         PesoTotal = pesoTotal;
         CustoTotal = custoTotal;
@@ -24,6 +26,8 @@ public class Viagem {
         CombinacaoVeiculos = combinacaoVeiculos;
         qtdTotalProdutos = qtdTotal;
         this.listaProdutos = listaProdutos;
+        this.cidadeOrigem = cidadeOrigem;
+        this.cidadeDestino = cidadeDestino;
     }
 
     public double getDistanciaTotal() {
@@ -52,5 +56,13 @@ public class Viagem {
 
     public List<Produtos> getListaProdutos() {
         return listaProdutos;
+    }
+
+    public String getCidadeOrigem() {
+        return cidadeOrigem;
+    }
+
+    public String getCidadeDestino() {
+        return cidadeDestino;
     }
 }

@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import  java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RelatorioPDF implements Relatorio {
@@ -76,20 +77,28 @@ public class RelatorioPDF implements Relatorio {
                 new DecimalFormatSymbols(Locale.GERMAN));
         for(Viagem viagem : viagens){
             List<Veiculo> listaVeiculos = viagem.getCombinacaoVeiculos();
-
-
+            Map<Veiculo, Long> veiculoMap = listaVeiculos.stream().collect(Collectors.groupingBy(v -> v, Collectors.counting()));
+            String veiculos = "";
             this.documento.add(new Paragraph("Trecho " + (viagens.indexOf(viagem)+1), new Font(Font.BOLD, 12)));
             com.lowagie.text.List list = new com.lowagie.text.List();
+            list.add("Cidade de origem: " + viagem.getCidadeOrigem());
+            list.add("Cidade de destino: " + viagem.getCidadeDestino());
             list.add("Distância total: " + df.format(viagem.getDistanciaTotal()) + " Km");
             list.add("Peso total: " + df.format(viagem.getPesoTotal()) + " Kg");
             list.add("Custo total: R$ " + df.format(viagem.getCustoTotal()));
-            list.add("Veículos usados: " + listaVeiculos.stream().map(v -> v.getTipo() + " ").collect(Collectors.joining()));
-            list.add("Produtos: " + viagem.getListaProdutos().stream().map(v -> v.getNome() + " ").collect(Collectors.joining()));
+
+            for (Map.Entry<Veiculo, Long> entry : veiculoMap.entrySet()) {
+                 veiculos += " " + entry.getValue().toString() + " " + entry.getKey().getTipo();
+            }
+            list.add("Veículos usados: " + veiculos);
+            list.add("Produtos: " +  viagem.getListaProdutos().stream().map(v -> v.getNome() + " ").collect(Collectors.joining()));
             list.add("Preço unitário: R$ " + df.format(viagem.getPrecoUnitario()));
             documento.add(list);
             this.documento.add(new Paragraph(" "));
             this.documento.add(new Paragraph(" "));
         }
+
+
 
         Paragraph paragrafoCustoTotal = new Paragraph();
 
