@@ -158,7 +158,6 @@ public class Main {
 
 
                 relatorio.gerarCabecalho();
-                relatorio.imprimir();
 
                 System.out.println("Também geramos um PDF com todas essas informações para você!!!");
                 System.out.println("Você pode encontrar na pasta relatórios");
