@@ -21,8 +21,7 @@ Acompanhe o progresso do projeto em nosso quadro Trello: [Projeto de Revisão - 
 
 ### Membros
 
-- [Gabriel Kretzmann](https://github.com/Kretzmann01)
-- [Iago Cappeletti](https://github.com/IagoCappeletti)
-- [Moisés Briceño](https://github.com/moises-briceno-medina)
-- [Robert Perquim](https://github.com/robertperquim)
-- [Vitor Nunes Chagas](https://github.com/vitozs)
+![project (1)](https://github.com/vitozs/projeto-revisao-jaguaras/assets/128396877/61f744a3-1532-49cd-b97e-56a47d2bd58e)
+
+
+- [Gabriel Kretzmann](https://github.com/Kretzmann01), [Iago Cappeletti](https://github.com/IagoCappeletti), [Moises Briceño](https://github.com/moises-briceno-medina), [Robert Perquim](https://github.com/robertperquim), [Vitor Nunes Chagas](https://github.com/vitozs)
