@@ -42,7 +42,7 @@ public class Main {
             try {
                 opcao = scan.nextInt();
                 if (opcao < 1 || opcao > 6)
-                    throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção valida (1 à 4)");
+                    throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção válida (1 à 4)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
             }
