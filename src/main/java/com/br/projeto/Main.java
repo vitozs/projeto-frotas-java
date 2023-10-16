@@ -1,13 +1,20 @@
 package com.br.projeto;
 import com.br.projeto.calculadora.Calculadora;
 import com.br.projeto.calculadora.MelhorFrotaCaminhoes;
+import com.br.projeto.exeptions.CidadeInexistenteException;
 import com.br.projeto.exeptions.OpcaoInvalidaException;
+import com.br.projeto.pdf.Relatorio;
+import com.br.projeto.pdf.RelatorioPDF;
 import com.br.projeto.produtos.Produtos;
 import com.br.projeto.tratamentoDadosEstatisticos.TratarDados;
 import com.br.projeto.tratamentoDadosEstatisticos.Viagem;
 import com.br.projeto.util.JsonReader;
 import com.br.projeto.veiculos.CaminhoesHashMap;
 import com.br.projeto.veiculos.Veiculo;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailAttachment;
+import org.apache.commons.mail.MultiPartEmail;
+import org.apache.commons.mail.SimpleEmail;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -40,21 +47,24 @@ public class Main {
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
+                System.err.println("Opcao invalida. Por favor, escolha um numero inteiro de (1 a 4)");
                 scan.next();
             }
             switch (opcao){
-                case 1 -> metodo1();
-                case 2 -> metodo2();
-                case 3 -> metodo3();
+                case 1 -> consultarTrechosModalidades();
+                case 2 -> cadastrarTransporte();
+                case 3 -> dadosEstatisticos();
                 case 4 -> listarCidades();
                 case 5 -> listarProdutos();
                 case 6 -> System.out.println("Sair"); //Apenas
             }
         }
 
+
+
     }
     // Função para listar as cidades
-    public static void listarCidades() {
+    private static void listarCidades() {
         JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
         jsonArray.forEach(obj -> {
             JSONObject cidade = (JSONObject) obj;
@@ -62,27 +72,16 @@ public class Main {
         });
     }
 
-    public static void listarProdutos(){
+    private static void listarProdutos(){
         Produtos produto = new Produtos();
         produto.getListaDeProdutos();
     }
 
-    private static void metodo1(){
-        //altere nome do metodo para chamada da class com o metodo
-        //chame sua classe aqui
-        // exemplo calculadora.calculaViagem();
-
-        String cidadeOrigem, cidadeDestino, tamanhoCaminhao;
+    private static void consultarTrechosModalidades(){
+        String tamanhoCaminhao;
         Calculadora calculadora = new Calculadora();
 
-        scan.nextLine();
-        System.out.println("Digite a cidade de origem: ");
-        cidadeOrigem = scan.nextLine();
-        calculadora.setCidade(cidadeOrigem);
-
-        System.out.println("Digite a cidade de destino: ");
-        cidadeDestino = scan.nextLine();
-        calculadora.setDestino(cidadeDestino);
+        recebeCidade(calculadora);
 
         System.out.println("Selecione o tamanho do caminhao: ");
         for (String tamanho : CaminhoesHashMap.hashMapVeiculos().keySet()){
@@ -101,25 +100,18 @@ public class Main {
 
 
     }
-    private static void metodo2(){
-        //altere nome do metodo para chamada da class com o metodo
-
+    private static void cadastrarTransporte(){
         Produtos produtos = new Produtos();
         String opt = "";
         Calculadora calculadora = new Calculadora();
-        String cidadeOrigem, cidadeDestino;
         double distanciaTotal, custoTotal, mediaUnitaria;
         List<Produtos> listProdutos;
         double pesoTotalProdutos = 0;
-
         int qtdTotal = 0;
-        while(!Objects.equals(opt, "n") && !Objects.equals(opt, "N")){
+
+        while(!Objects.equals(opt, "N") ){
             produtos.adicionarProduto();
-            System.out.println("Deseja continuar? (s/n) ");
-            opt = scan.next();
-            if(!Objects.equals(opt, "S") && !Objects.equals(opt, "s") && !Objects.equals(opt, "N") && !Objects.equals(opt, "n")){
-                throw new OpcaoInvalidaException("Opcao invalida!");
-            }
+            opt = loopContinuar(); //recebe a opcao que o usuario digitou S ou N
         }
 
         listProdutos = produtos.getProdutosList();
@@ -128,16 +120,8 @@ public class Main {
             pesoTotalProdutos += produto.getPeso() * produto.getQuantidade();
             qtdTotal += produto.getQuantidade();
         }
-        scan.nextLine();
 
-        System.out.println("----------------------");
-        System.out.println("Digite a cidade origem: ");
-        cidadeOrigem = scan.nextLine();
-        calculadora.setCidade(cidadeOrigem);
-
-        System.out.println("Digite a cidade destino: ");
-        cidadeDestino = scan.nextLine();
-        calculadora.setDestino(cidadeDestino);
+        recebeCidade(calculadora);
 
         distanciaTotal = calculadora.getDistanciaEntreCidades();
 
@@ -148,7 +132,7 @@ public class Main {
 
         System.out.println("----------------------");
         System.out.println("Distancia total: " + distanciaTotal + " Km");
-        System.out.println("Peso total: " + pesoTotalProdutos + " Kg");
+        System.out.printf("Peso total: %.2f Kg" , pesoTotalProdutos);
         System.out.printf("Custo total: R$ %.2f \n", custoTotal);
         System.out.printf("Preco unitario medio: R$ %.2f \n", mediaUnitaria );
         System.out.println("--------------------");
@@ -158,12 +142,15 @@ public class Main {
         }
         System.out.println("--------------------");
 
-        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal));
+        TratarDados.adicionarViagem(new Viagem(distanciaTotal, pesoTotalProdutos, custoTotal, mediaUnitaria, melhorCombinacao , qtdTotal, listProdutos));
 
 
     }
-    private static void metodo3(){
-        //altere nome do metodo para chamada da class com o metodo
+    private static void dadosEstatisticos(){
+
+
+        Relatorio relatorio = new RelatorioPDF();
+
         System.out.println("==========================");
         System.out.println("||                      ||");
         System.out.println("||      RELATORIO       ||");
@@ -176,7 +163,100 @@ public class Main {
         System.out.println("Numero total de produtos transportados: " + TratarDados.numeroTotalProdutos());
         TratarDados.custoTotalPorModalidade();
         System.out.printf("\nCusto medio por Km: %.2f Km\n",  TratarDados.custoMedioPorKm());
+
+
+        relatorio.gerarCabecalho();
+        relatorio.imprimir();
+
+        System.out.println("Tambem Gramos um PDF com todas essas informacoes para voce!!!");
+        System.out.println("Voce Pode encontrado la pasta relatorios");
+
+        enviaEmail();
     }
 
+    private static String loopContinuar(){
+        boolean controle = false;
+        String opcao = "";
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Deseja continuar? (s/n) ");
+                opcao = scan.next().toUpperCase();
+                if(!Objects.equals(opcao, "S") && !Objects.equals(opcao, "N")){
+                    throw new OpcaoInvalidaException("Opcao invalida!");
+                }
+            }catch (OpcaoInvalidaException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }
+        }
+        return opcao;
+    }
+
+
+    private static void recebeCidade(Calculadora calculadora){
+        String cidadeOrigem, cidadeDestino;
+        boolean flag = false;
+        scan.nextLine();
+        while (!flag){
+            try {
+
+                System.out.println("----------------------");
+                System.out.println("Digite a cidade de origem: ");
+                cidadeOrigem = scan.nextLine();
+                calculadora.setCidade(cidadeOrigem);
+
+                System.out.println("Digite a cidade de destino: ");
+                cidadeDestino = scan.nextLine();
+                calculadora.setDestino(cidadeDestino);
+
+                flag = true;
+            }catch (CidadeInexistenteException e){
+
+                System.err.println(e.getMessage());
+
+            }
+
+        }
+
+
+
+    }
+
+    private static void enviaEmail(){
+
+        String meuEmail = "amarelinhaapp@gmail.com";
+        String minhaSenha = "fazaprhtdqftvqbs";
+
+        MultiPartEmail email = new MultiPartEmail();
+
+        email.setHostName("smtp.gmail.com");
+        email.setSSLOnConnect(true);
+        email.setSmtpPort(465);
+        email.setAuthentication(meuEmail, minhaSenha);
+
+
+        try {
+            email.setFrom(meuEmail);
+            email.setSubject("Envio do relatorio de Entregas");
+            email.setMsg("Segue em anexo o relatorio");
+            email.addTo("vitornuneschagas2016@gmail.com");
+
+            EmailAttachment anexo = new EmailAttachment();
+
+            anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");
+
+            anexo.setName("Arquivo_Relatorio_Entregas.pdf");
+
+            email.attach(anexo);
+
+            email.send();
+            System.out.println("Email enviado com sucesso!!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }
