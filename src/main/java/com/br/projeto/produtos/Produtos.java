@@ -92,7 +92,7 @@ public class Produtos {
             try {
                 System.out.println("Digite o id do produto: ");
                 idSelecionado = scanner.nextInt();
-                if(idSelecionado > 8 || idSelecionado < 0){
+                if(idSelecionado > 8 || idSelecionado <= 0){
                     throw new ProdutoNaoEncontradoException("Id de produto não encontrado!");
                 }
 

@@ -25,6 +25,7 @@ public class EnviaEmail {
             email.addTo("perquimrobert@gmail.com");
             email.addTo("moisesbricenomedina29@gmail.com");
             email.addTo("gabrielkretzmanndasilva@hotmail.com");
+            email.addTo("vitornuneschagas2016@gmail.com");
             EmailAttachment anexo = new EmailAttachment();
 
             anexo.setPath("src/main/java/com/br/projeto/relatorios/RelatorioEntregas.pdf");

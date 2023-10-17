@@ -39,12 +39,12 @@ public class Main {
             try {
                 opcao = scan.nextInt();
                 if (opcao < 1 || opcao > 6)
-                    throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção válida (1 à 4)");
+                    throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção válida (1 à 6)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
             }
             catch (InputMismatchException e) {
-                System.err.println("Opção inválida. Por favor, escolha um número inteiro de (1 à 4)");
+                System.err.println("Opção inválida. Por favor, escolha um número inteiro de (1 à 6)");
                 scan.next();
             }
             switch (opcao){
