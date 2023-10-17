@@ -20,8 +20,8 @@ public class EnviaEmail {
         try {
             email.setFrom(meuEmail);
 
-            email.setSubject("Envio do relatório de Entregas");
-            email.setMsg("Segue em anexo o relatório");
+            email.setSubject("Envio do relatorio de Entregas");
+            email.setMsg("Segue em anexo o relatorio");
             email.addTo("perquimrobert@gmail.com");
             email.addTo("moisesbricenomedina29@gmail.com");
             email.addTo("gabrielkretzmanndasilva@hotmail.com");
@@ -34,7 +34,7 @@ public class EnviaEmail {
             email.attach(anexo);
 
             email.send();
-            System.out.println("Enviamos o relatorio para seu e-mail!!!!");
+            System.out.println("Enviamos o relatório para seu e-mail!!!!");
 
         }catch (Exception e){
             e.printStackTrace();
