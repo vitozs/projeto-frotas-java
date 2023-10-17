@@ -1,12 +1,12 @@
 [
       {
             "id" : 1,
-            "nome" : "Celular",
+            "nome" : "CELULAR",
             "peso" : 0.7
       },
       {
             "id" : 2,
-            "nome" : "Geladeira",
+            "nome" : "GELADEIRA",
             "peso" : 50
       },
       {

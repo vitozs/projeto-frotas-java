@@ -49,18 +49,24 @@ public class TratarDados {
         for (Viagem viagem : viagens){
             List<Veiculo> veiculos = viagem.getCombinacaoVeiculos();
             for (Veiculo veiculo : veiculos){
-                System.out.printf("Total veiculo " + veiculo.getTipo() + ": R$ %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
+                System.out.printf("Total veículo " + veiculo.getTipo() + ": R$ %.2f \n" , veiculo.getCustoPorKm() * viagem.getDistanciaTotal());
             }
         }
     }
 
     public static double custoMedioPorKm(){
         double valorTotal = 0;
+        double kmTotal = 0;
         double media = 0;
         for (Viagem viagem : viagens){
             valorTotal += viagem.getCustoTotal();
+            kmTotal += viagem.getDistanciaTotal();
         }
-        media = valorTotal / viagens.size();
+        media = valorTotal / kmTotal;
         return media;
+    }
+
+    public static List<Viagem> getViagens(){
+        return viagens;
     }
 }

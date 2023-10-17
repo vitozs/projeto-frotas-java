@@ -1,7 +1,7 @@
 package com.br.projeto.produtos;
 
-import com.br.projeto.exeptions.CampoInvalidoException;
 import com.br.projeto.exeptions.ProdutoNaoEncontradoException;
+import com.br.projeto.exeptions.QuantidadeInvalidaException;
 import com.br.projeto.util.JsonReader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,7 +35,7 @@ public class Produtos {
     public void getListaDeProdutos() {
         /**/
         JSONArray produtos = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
-        System.out.println("= Lista de Produtos =");
+        System.out.println("==== Lista de Produtos ===");
         for (Object produtosJson : produtos) {
             JSONObject produto = (JSONObject) produtosJson;
             System.out.print("id: ");
@@ -45,6 +45,7 @@ public class Produtos {
             System.out.print(", peso: ");
             System.out.println(produto.get("peso"));
         }
+        System.out.println();
     }
 
 
@@ -52,18 +53,11 @@ public class Produtos {
         JSONArray produtos = JsonReader.lerArquivoJson("src/main/resources/json/produtos.json");
         boolean produtoEncontrado = false;
         int idSelecionado = 0, quantidadeProduto = 0;
-        try {
-            System.out.print("Digite o id do produto: ");
-            idSelecionado = scanner.nextInt();
-            if(idSelecionado > 8 || idSelecionado < 0){
-                throw new ProdutoNaoEncontradoException("Id de produto nao encontrado!");
-            }
-            System.out.print("Digite a quantidade de produtos: ");
-            quantidadeProduto = scanner.nextInt();
 
-        }catch (InputMismatchException e){
-            throw new CampoInvalidoException("Campo digitado invalido! Digite um valor valido");
-        }
+
+        idSelecionado = recebeID(scanner);
+        quantidadeProduto =  recebeQuantidadeProduto(scanner);
+
 
         for (Object produtosJson : produtos) {
             JSONObject produto = (JSONObject) produtosJson;
@@ -79,11 +73,71 @@ public class Produtos {
         }
 
         if (produtoEncontrado) {
-            System.out.println("Produto adicionado com sucesso.");
-            System.out.print(produtos.get(idSelecionado -1));
-            System.out.println(" Quantidade: " + quantidadeProduto);
+            System.out.println("Produto adicionado com sucesso!!!.");
+            System.out.println("Produtos adicionados ate o momento!!!.");
+            System.out.println("Nome\t\t\t\tPeso (kg)\t\tQuantidade");
+            for (Produtos produto : produtosList) {
+                System.out.printf("%-20s%-20.1f%-20d%n", produto.getNome(), produto.getPeso(), produto.getQuantidade());
+            }
+
         }
     }
+
+    private static int recebeID(Scanner scanner){
+        boolean controle = false;
+        int idSelecionado = 0;
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Digite o id do produto: ");
+                idSelecionado = scanner.nextInt();
+                if(idSelecionado > 8 || idSelecionado < 0){
+                    throw new ProdutoNaoEncontradoException("Id de produto não encontrado!");
+                }
+
+            } catch (ProdutoNaoEncontradoException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }catch (InputMismatchException e){
+                System.err.println("Campo digitado inválido! Digite um valor válido");
+                scanner.next();
+                controle = false;
+            }
+        }
+
+        return idSelecionado;
+
+    }
+
+    private static int recebeQuantidadeProduto(Scanner scanner){
+        boolean controle = false;
+        int quantidadeProduto = 0;
+
+        while (!controle){
+            controle = true;
+            try {
+                System.out.println("Digite a quantidade de produtos: ");
+                quantidadeProduto = scanner.nextInt();
+                if(quantidadeProduto <= 0){
+                    throw new QuantidadeInvalidaException("Quantidade Inválida! Por favor, digite uma quantidade válida!");
+                }
+
+            } catch (QuantidadeInvalidaException e){
+                System.err.println(e.getMessage());
+                controle = false;
+            }catch (InputMismatchException e){
+                System.err.println("Campo digitado inválido! Digite um valor válido");
+                scanner.next();
+                controle = false;
+            }
+        }
+
+        return quantidadeProduto;
+
+    }
+
+
 
     public List<Produtos> getProdutosList() {
         return produtosList;
@@ -95,5 +149,9 @@ public class Produtos {
 
     public int getQuantidade() {
         return quantidade;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }

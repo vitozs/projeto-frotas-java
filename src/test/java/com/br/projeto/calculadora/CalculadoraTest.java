@@ -1,6 +1,7 @@
 package com.br.projeto.calculadora;
 
 import com.br.projeto.exeptions.CidadeInexistenteException;
+import com.br.projeto.validacoes.cidades.ValidaCidade;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 public class CalculadoraTest {
 
     Calculadora calculadora = new Calculadora();
+    ValidaCidade validaCidade = new ValidaCidade();
 
     @DisplayName("Testa se retorna a distancia certa entre as cidades")
     @Test
@@ -36,7 +38,7 @@ public class CalculadoraTest {
 
 
         Assertions.assertThrows(CidadeInexistenteException.class, ()-> {
-            calculadora.validadorCidadeDestino("maiai");
+            validaCidade.validadorCidadeDestino("maiai");
         });
 
     }
