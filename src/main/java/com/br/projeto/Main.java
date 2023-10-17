@@ -53,7 +53,7 @@ public class Main {
                 case 3 -> dadosEstatisticos();
                 case 4 -> listarCidades();
                 case 5 -> listarProdutos();
-                case 6 -> System.out.println("Sair");
+                case 6 -> System.out.println("Obrigado pela preferência, Amarelinha Transportes Agradece!!");
             }
         }
 
@@ -155,7 +155,7 @@ public class Main {
 
                 enviaEmail.enviarEmail();
             }else{
-                throw new OpcaoInvalidaException("Voce nao possui entregas cadastradas!");
+                throw new OpcaoInvalidaException("Você nao possui entregas cadastradas!");
             }
         }catch (OpcaoInvalidaException e){
             System.err.println(e.getMessage());
