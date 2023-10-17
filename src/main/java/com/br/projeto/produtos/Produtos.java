@@ -74,7 +74,7 @@ public class Produtos {
 
         if (produtoEncontrado) {
             System.out.println("Produto adicionado com sucesso!!!.");
-            System.out.println("Produtos adicionados ate o momento!!!.");
+            System.out.println("Produtos adicionados até o momento!!!.");
             System.out.println("Nome\t\t\t\tPeso (kg)\t\tQuantidade");
             for (Produtos produto : produtosList) {
                 System.out.printf("%-20s%-20.1f%-20d%n", produto.getNome(), produto.getPeso(), produto.getQuantidade());
