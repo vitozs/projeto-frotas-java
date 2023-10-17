@@ -61,19 +61,9 @@ public class Main {
 
     }
     // Função para listar as cidades
-    private static void listarCidades() {
-        JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
-        jsonArray.forEach(obj -> {
-            JSONObject cidade = (JSONObject) obj;
-            System.out.println(cidade.get("CIDADE"));
-        });
-    }
 
-    private static void listarProdutos(){
-        Produtos produto = new Produtos();
-        produto.getListaDeProdutos();
-    }
 
+    //Principal
     private static void consultarTrechosModalidades(){
         Calculadora calculadora = new Calculadora();
 
@@ -175,6 +165,19 @@ public class Main {
 
     }
 
+
+    //Util
+    private static void listarCidades() {
+        JSONArray jsonArray = JsonReader.lerArquivoJson("src/main/resources/json/relacao_cidades.json");
+        jsonArray.forEach(obj -> {
+            JSONObject cidade = (JSONObject) obj;
+            System.out.println(cidade.get("CIDADE"));
+        });
+    }
+    private static void listarProdutos(){
+        Produtos produto = new Produtos();
+        produto.getListaDeProdutos();
+    }
     private static String loopContinuar(){
         boolean controle = false;
         String opcao = "";
@@ -194,6 +197,9 @@ public class Main {
         }
         return opcao;
     }
+
+
+    //Validador
     private static void recebeTamanhoCaminhao(Calculadora calculadora){
         String tamanhoCaminhao;
         boolean flag = false;
