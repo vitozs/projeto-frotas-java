@@ -17,11 +17,11 @@ Trabalhar em grupo usando o Git foi uma experiência legal e com muitos aprendiz
 Acompanhe o progresso do projeto em nosso quadro Trello: [Projeto de Revisão - Geração Caldeira](https://trello.com/b/XnM9fg8i/projeto-de-revis%C3%A3o-gera%C3%A7%C3%A3o-caldeira)
 
 
-## Grupo Jaguaras
+Acompanhe o desafiio proposto: [Projeto proposto - Geração Caldeira](https://github.com/SkiereszDiego/Java-Caldeira/blob/main/aula09/review.md)
 
-### Membros
 
-![project (1)](https://github.com/vitozs/projeto-revisao-jaguaras/assets/128396877/61f744a3-1532-49cd-b97e-56a47d2bd58e)
+### Participantes
 
+![image](https://github.com/vitozs/projeto-frotas-java/assets/113685735/931c41c1-0b38-4f3f-9fad-8a4ab36abd25)
 
 - [Gabriel Kretzmann](https://github.com/Kretzmann01), [Iago Cappeletti](https://github.com/IagoCappeletti), [Moises Briceño](https://github.com/moises-briceno-medina), [Robert Perquim](https://github.com/robertperquim), [Vitor Nunes Chagas](https://github.com/vitozs)
