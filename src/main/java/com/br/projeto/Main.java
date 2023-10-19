@@ -42,10 +42,12 @@ public class Main {
                     throw new OpcaoInvalidaException("Opção inválida. Por favor, escolha uma opção válida (1 à 6)");
             } catch (OpcaoInvalidaException e){
                 System.err.println(e.getMessage());
+                opcao = 0;
             }
             catch (InputMismatchException e) {
                 System.err.println("Opção inválida. Por favor, escolha um número inteiro de (1 à 6)");
                 scan.next();
+                opcao = 0;
             }
             switch (opcao){
                 case 1 -> consultarTrechosModalidades();
